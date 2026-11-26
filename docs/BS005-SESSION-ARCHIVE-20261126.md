@@ -17,3 +17,7 @@ Higgsfield hosted Blender (free in this session): https://higgsfield.ai/3d-jutsu
 
 ## Resume only when user requests
 Reference-driven component approach, shared physical coordinates (metres), assembly-local material batching and two LOD tiers. Next candidate rear wheel/sprocket/chain; preserve T30 and its 16 groups, establish reference gate before integration. Claude's recommendations: accepted hero first, local vendor assets, max two attempts per strategy, camera framing. Do not vendor rejected 21 MB source just to keep it. Real-device FPS, precise mechanical dimensions and final F3 acceptance remain open.
+
+## Final preview and verification
+
+T31 runtime source 19461d26a0f00bc2e7c8d316e99001503da58fa3; deployment dpl_J6cJrbi2zLbMPidJkSBKbtZA5KcD READY, 104 source files, https://mystuff-qfnoyunf2-marquisemuseumnfts-projects.vercel.app/trophy/index.html?asset=BS-005-WHEEL. Legacy BS-005 query selects wheel. Actual WebGL screenshot harness of committed hall, wheel and market source with public baseline renderer modules exercised all five selections, LOD selector and spin/explode button handlers without page failure; final rendered wheel visible on Noble pedestal. Harness used empty test ownership and relative thumbnails were not loaded there; deployed thumbnail and prior asset paths verified in deployment manifest. Protected preview and real GPU performance not independently tested. No production promotion, no further development during pause.
