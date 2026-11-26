@@ -1,0 +1,14 @@
+{
+  "id": "EK-001",
+  "revision": "A",
+  "kernel": "Engineering Kernel Lite v1.0",
+  "definition": "engineering/definitions/EK-001.json",
+  "pdf": {
+    "path": "engineering/EK-001-Rev-A.pdf",
+    "r2Key": "ek-001/rev-a/production-dossier.pdf",
+    "bytes": 132043,
+    "pages": 2,
+    "sha256": "e47f1ff22efacb29c8e17824c6aff5c4674fbb20de54b8920ef0bd21f87e8586"
+  },
+  "qualification": "E2 candidate for printable profile only; no STEP, physical validation or rated load."
+}
