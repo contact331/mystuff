@@ -4,11 +4,11 @@ export const catalog=[
  {id:'BS-002',category:'Memory',name:'Noble DDR5 64 GB',brand:'Noble',price:6490,spec:'2 × 32 GB · DDR5-6400 · UDIMM',desc:'Gold-finished concept memory kit with illuminated edges and sequential dual-channel installation.',art:'ram',dossier:'/references/index.html?asset=BS-002'},
  {id:'BS-003',category:'Graphics cards',name:'GeForce RTX 5090',brand:'NVIDIA',price:59990,spec:'32 GB GDDR7 · Blackwell · Founders Edition',desc:'Unbox the premium card and accessories, align and seat the GPU, connect auxiliary power and run a live graphics workload.',art:'gpu',dossier:'/references/index.html?asset=BS-003',route:'/gpu/fe.html'},
  {id:'BS-004',category:'Semiconductor specimens',name:'Vera Rubin · Logic wafer',brand:'NVIDIA reference',price:89900,spec:'300 mm · schematic Rubin logic dies',desc:'Virtual collectible, not a commercially offered wafer. Inspect iridescent silicon, probe dies, assemble a Rubin package and run a local compute demonstration.',art:'wafer',dossier:'/references/index.html?asset=BS-004',route:'/wafer/index.html'},
- {"id":"BS-005","category":"Heritage motorsport","name":"Heritage Sportbike","brand":"NSR500-inspired tribute","price":49000,"spec":"Imported CC0 sportbike · historical NSR500 reference","desc":"Fictional private showroom acquisition of a generic imported sportbike inspired by 1995 racing; ride-out, mechanical checks, reversible exploded inspection and helmet case.","art":"bike","dossier":"/bike/dossier.html","route":"/bike/index.html"}
+ {id:'BS-005-WHEEL',category:'Motorsport components',name:'NSR500 · Front wheel',brand:'1995 GP reference',price:4900,spec:'T30 · twin 320 mm carbon rotors · 16 assemblies',desc:'Virtual front tyre, orange cast rim, carbon brakes and axle assembly. Inspect both geometry tiers, spin the wheel and separate the mechanical components. Reference-based study, not factory CAD.',art:'wheel',dossier:'/bike/wheel-slice-t30.html',route:'/bike/wheel-slice-t30.html',kind:'inspection'}
 ];
 export const delivery={locker:{label:'MyStuff Box · Teplice',fee:49,description:'Virtual collection locker',eta:'Next day'},home:{label:'Home delivery',fee:99,description:'Virtual courier delivery',eta:'1–2 days'}};
 export const initial=()=>({schema:1,balance:100000,cart:{},orders:[],delivery:'locker',serial:1});
-export function load(storage=localStorage){try{const d=JSON.parse(storage.getItem(KEY));return d?.schema===1&&Number.isSafeInteger(d.balance)&&d.balance>=0&&Array.isArray(d.orders)&&d.cart&&typeof d.cart==='object'?d:initial()}catch{return initial()}}
+export function load(storage=localStorage){try{const d=JSON.parse(storage.getItem(KEY));if(!(d?.schema===1&&Number.isSafeInteger(d.balance)&&d.balance>=0&&Array.isArray(d.orders)&&d.cart&&typeof d.cart==='object'))return initial();delete d.cart['BS-005'];return d}catch{return initial()}}
 export function save(state,storage=localStorage){storage.setItem(KEY,JSON.stringify(state));return state}
 export const product=id=>catalog.find(p=>p.id===id);
 export function lines(s){return Object.entries(s.cart).map(([id,n])=>({p:product(id),n})).filter(x=>x.p&&Number.isInteger(x.n)&&x.n>0&&x.n<=9)}
@@ -18,6 +18,6 @@ export function purchase(s,now=Date.now()){const t=totals(s);if(!t.gross)throw E
 export const statuses=['Order confirmed','Preparing shipment','In transit','Ready for acquisition'];
 export function advance(o){o.stage=Math.min(statuses.length-1,o.stage+1);return o}
 export function ownsInstalled(id,storage=localStorage){try{return !!JSON.parse(storage.getItem(COLLECTION)||'{}')[id]?.installed}catch{return false}}
-export function engineURL(o,id){if(o.stage!==3||!o.lines.some(l=>l.id===id))return null;return product(id)?.route||'/v5/index.html?asset='+encodeURIComponent(id)}
+export function engineURL(o,id){if(o.stage!==3||!o.lines.some(l=>l.id===id))return null;if(id==='BS-005')return '/bike/index.html';const p=product(id);return p?(p.route||'/v5/index.html?asset='+encodeURIComponent(id)):null}
 export const czk=n=>Number(n).toLocaleString('cs-CZ')+' Kč';
 export const cents=n=>(n/100).toLocaleString('cs-CZ',{minimumFractionDigits:2,maximumFractionDigits:2})+' Kč';

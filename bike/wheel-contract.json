@@ -31,5 +31,5 @@
   },
   "acceptance": "User requested exhibition of T30 component and pause; not F3 acceptance.",
   "runtime": "Local repo Three r160, shared helpers, no external model or CDN",
-  "integration": "T31 Trophy Hall engineering exhibit BS-005-WHEEL; no ownership transfer; full bike archived/frozen"
+  "integration": "T32 shared Market/Trophy Hall SKU BS-005-WHEEL; fictional price 4900 CZK; delivered or completed own-ID records count as acquired; no old motorcycle ownership transfer; full bike archived/frozen"
 }
