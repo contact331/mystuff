@@ -61,3 +61,6 @@ User accepted T03's visual speed/quality point. F2 is the default; F3–F4 are s
 
 ## T06 full unboxing checkpoint
 Integrated F2 V3 candidate at https://mystuff-seven.vercel.app/v3/index.html. V2 and T03 retained. Source f3f7fdd1af3df6fdfec0f22f9ce2a370d03c877a on renderer/pbr-v3, deployment dpl_3VbZd5HKNeonE7EFaeUW3onUbinV. Collision audit: 121 sampled positions, no packaging/pedestal intersections. Follow branch docs/HANDOVER.md. Next: T07 acceptance and consolidate reusable engine before adding new artifacts; do not rebuild or escalate fidelity unnecessarily.
+
+## T09 collection-engine checkpoint
+V5 live: https://mystuff-seven.vercel.app/v5/index.html (CPU BS-001 and RAM BS-002). Read [ENGINE-V5.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/ENGINE-V5.md) and branch handover. Use shared registry/models/scene interface for future acquisitions. F2 remains default. Cumulative installed state is browser-local. Current slot reconstruction and lifecycle support CPU/RAM; extend adapters for other object types without duplicating the renderer. Deployed source 31ca9b31d495bfeaebc7a82ea2721d61d8da421c; keep V4 unchanged as baseline. No paid GPU provisioning.
