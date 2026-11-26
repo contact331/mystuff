@@ -88,3 +88,6 @@ Applicable hardware acquisitions must include an inherent casino-style numerical
 
 ## T20 wafer acquisition
 BS-004 live https://mystuff-seven.vercel.app/wafer/index.html. Distinct semiconductor loop, source in wafer/, market catalog and official reference library extended. Synthetic wafer yield and assembly explicitly illustrative; 300 mm specimen preserved, real local toy attention calculation is not Rubin inference. Preserve existing product routes, no authored dossier, bounded VFX and casino numerics. See T20 handover for verification limits.
+
+## T21 trophy hall
+Live https://mystuff-seven.vercel.app/trophy/index.html. Add future acquisitions to the shared collection and trophy display, preserve delivered/completed vs preview distinction, one active detailed exhibit for performance. Rubin F3 candidate models and H300-inspired carrier, five final exhibition modes, original official references only; see T21 handover. Keep old gallery and acquisition routes working.
