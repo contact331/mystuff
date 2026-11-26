@@ -31,3 +31,6 @@ Deployed candidate: https://mystuff-seven.vercel.app/v3/index.html (source f3f7f
 
 ## T09 — V5 collection engine
 Deployed V5 at https://mystuff-seven.vercel.app/v5/index.html. Source 31ca9b31d495bfeaebc7a82ea2721d61d8da421c; deployment dpl_DjkzfbWUkLi3Lv6EkkRbECwSXuKP READY. Shared shell/scene/registry/models, CPU and Noble DDR5 64 GB concept kit, persistent local installed inventory, cumulative assembly on the existing motherboard, RAM PDF and reference plate. Both browser lifecycle smoke tests passed; cross-object test used seeded CPU inventory and saved RAM. Full extension contract, test limitations and remaining generalization scope in docs/ENGINE-V5.md. No earlier live routes changed.
+
+## T10–T14 — MyStuff Market V6
+Live https://mystuff-seven.vercel.app/market/index.html, source e3c8a3e9290215ef6ad5a58999a228e0ad42a6d2, deployment dpl_Cb1zL245xWjPayc9Zgq4cvH1NuRB READY. Checkout browser test passed for two products, 23,329 CZK total, 76,671 remaining, order/receipt/delivery links. V5 and earlier routes unchanged. See docs/MARKET-V6.md for architecture, test evidence and limitations.
