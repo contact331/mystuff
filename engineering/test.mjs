@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {generate,stl,threeMF,bomCSV,report,drawing} from './kernel.mjs';
+const d=JSON.parse(readFileSync(new URL('./definitions/EK-001.json',import.meta.url),'utf8'));
+const g=generate(d);assert(g.pass);assert.deepEqual(g.bounds,[91,91,21]);assert.equal(g.vertices.length,770);assert.equal(g.triangles.length,1536);assert.equal(g.score,34);assert(g.meshErrorPercent<.1);
+const x=generate(d,{diameterScale:2,heightScale:.5,material:'PETG'});assert(x.pass);assert.deepEqual(x.bounds,[182,182,10.5]);assert(Math.abs(x.volumeMm3/g.volumeMm3-2)<.0001);assert.equal(x.bom[0].material,'PETG');
+for(const n of [24,48,96,192,256])assert(generate(d,{segments:n}).pass);
+assert.throws(()=>generate(d,{segments:13}));assert.throws(()=>generate(d,{diameterScale:0}));assert.throws(()=>generate(d,{material:'unknown'}));assert.throws(()=>generate({...d,profile:[{z:0,r:1},{z:3,r:1},{z:2,r:1}]}));
+assert.equal((stl(g).match(/facet normal/g)||[]).length,g.triangles.length);assert.equal(new DataView(threeMF(g).buffer).getUint32(0,true),0x04034b50);
+assert(bomCSV(g).includes('Monolithic pedestal body'));assert(drawing(g).includes('91'));assert.equal(report(g).mesh.triangles,1536);console.log('Kernel Lite: profile, topology, scale, volume, invalid input, exports and scorecard PASS');
