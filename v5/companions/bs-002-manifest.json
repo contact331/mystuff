@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "BS-002",
+  "name": "Noble DDR5 64 GB",
+  "grade": "F2",
+  "type": "concept DDR5 UDIMM kit",
+  "configuration": {
+    "modules": 2,
+    "capacityGB": 32,
+    "dataRateMTs": 6400,
+    "peakDualChannelGBs": 102.4
+  },
+  "reference": {
+    "capacityGB": 32,
+    "dataRateMTs": 5600,
+    "peakDualChannelGBs": 89.6
+  },
+  "geometry": {
+    "nominalModuleLengthMm": 133.35,
+    "status": "Reference envelope; heat spreader, key and contact layout conceptual"
+  },
+  "companion": {
+    "revision": "A",
+    "source": "v5/companions/bs-002.html",
+    "pdf": "/v5/companions/bs-002.pdf",
+    "r2Key": "bs-002/rev-a/companion.pdf",
+    "bytes": 193446,
+    "pages": 4,
+    "sha256": "6f1c5ac0254df2ef950d3939b20e04657b12857cef9a9edee0fbe18002b27474"
+  },
+  "blueprint": "v5/companions/bs-002-blueprint.svg",
+  "manufacturer": null,
+  "price": null
+}
