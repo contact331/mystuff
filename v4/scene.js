@@ -111,6 +111,7 @@ tileGroup.visible=false;
 const themes={gold:[0xc9a05a,0x111218,0x202229,0xe7c68d],sapphire:[0xc4c9d0,0x103577,0x2249a0,0x699fff],ruby:[0xd6a28c,0x6e101f,0xa1213c,0xff8794],emerald:[0xc9a05a,0x064a37,0x158b61,0x85e9c1]};
 function theme(name){const a=themes[name];if(!a)return;gold.color.setHex(a[0]);gemstone.color.setHex(a[1]);gemRim.color.setHex(a[2]);gemstone.roughness=name==='gold'?.18:.11;gemstone.metalness=name==='gold'?.25:.12;haloMat.color.setHex(a[3]);dust.material.color.setHex(a[3]);}
 const board=makeBoard(scene);
+const boardKey=new T.DirectionalLight(0xfff1dc,2.8),boardFill=new T.DirectionalLight(0xb9ddff,1.5);boardKey.position.set(2,13,6);boardFill.position.set(-6,8,-5);scene.add(boardKey,boardFill);boardKey.visible=boardFill.visible=false;
 const audio=bindAudio(el);let lastArrival=-1,metricsOn=false,metricStart=0;let current=0,progress=0,cpuYaw=0,cpuTilt=0,flipTarget=0,flip=0,exTarget=0,ex=0,autoSpin=true,orbitMode=false,macro=false,zoomFactor=1,camYawOffset=0,camPitchOffset=0,materialChoice='gold',burstTime=-10000,burstKind=0;
 const pointers=new Map();let drag=false,moved=false,pinch=0,toastTimer=0;
 const pressed=(id,value)=>el(id).setAttribute('aria-pressed',String(value));
@@ -147,18 +148,18 @@ const installCameras=[
  {target:[0,.6,-.6],dist:24.5,pitch:1.08,yaw:.12},
  {target:[SOCKET.x,.8,SOCKET.z],dist:8.1,pitch:1.12,yaw:.15},
  {target:[SOCKET.x,.55,SOCKET.z],dist:7.0,pitch:1.13,yaw:.12},
- {target:[0,.4,-.3],dist:24.0,pitch:1.20,yaw:.10}
+ {target:[0,.4,.6],dist:32.5,pitch:1.18,yaw:.10}
 ];
 function installLayout(t){
  const p=progress,appear=ease((p-6.38)/.62),travel=ease(p-6),lower=ease(p-8),align=ease(p-7),lock=ease(p-9),retention=ease((lock)*1.7),lever=ease((lock-.52)/.48);
- board.group.visible=p>6.38;board.group.position.y=-(1-appear)*1.4;board.set(1-retention,lever,p>=9.98?1:0);
+ board.group.visible=p>6.38;boardKey.visible=boardFill.visible=board.group.visible;packaging.visible=p<6.7;board.group.position.y=-(1-appear)*1.4;board.set(1-retention,lever,p>=9.98?1:0);
  stageRoot.visible=p<6.36;stageRoot.position.y=-ease((p-6)/.36)*1.65;dust.visible=false;
  const hoverY=lerp(3.15,1.48,align);
  cpuRoot.position.set(lerp(0,SOCKET.x,travel),p<7?lerp(2.16,3.15,travel):lerp(hoverY,SOCKET.seatY,lower),lerp(0,SOCKET.z,travel));
  chip.rotation.set(.77*(1-travel),.23*(1-travel),0,'YXZ');
  ihsBase.position.y=.038;ihsMesh.position.y=0;mark.position.y=.158;tileGroup.position.y=0;tileGroup.visible=false;
  const idx=Math.min(3,Math.max(0,Math.floor(p)-7)),before=p<7?CAMERA_STAGES[6]:installCameras[idx],after=p<7?installCameras[0]:installCameras[Math.min(3,idx+1)],f=ease(p-Math.floor(p)),target=new T.Vector3(...before.target).lerp(new T.Vector3(...after.target),f);
- const d=lerp(before.dist,after.dist,f)*zoomFactor*(camera.aspect<.8?1.22:1),cy=lerp(before.yaw,after.yaw,f)+camYawOffset,cp=T.MathUtils.clamp(lerp(before.pitch,after.pitch,f)+camPitchOffset,.12,1.48);
+ if(macro)target.set(SOCKET.x,.58,SOCKET.z);const d=(macro?7.2:lerp(before.dist,after.dist,f)*zoomFactor)*(camera.aspect<.8?1.22:1),cy=lerp(before.yaw,after.yaw,f)+camYawOffset,cp=T.MathUtils.clamp(lerp(before.pitch,after.pitch,f)+camPitchOffset,.12,1.48);
  camera.position.set(target.x+d*Math.cos(cp)*Math.sin(cy),target.y+d*Math.sin(cp),target.z+d*Math.cos(cp)*Math.cos(cy));camera.lookAt(target);
  if(p>=9.98&&current===10)showMetrics(t);else if(metricsOn)hideMetrics();
  scene.updateMatrixWorld(true);
@@ -171,7 +172,7 @@ function applyLayout(t){const l=layoutAt(Math.min(progress,6));packaging.positio
  chip.rotation.set(look*(.77+cpuTilt+flip),look*(.23+cpuYaw),0,'YXZ');
  ihsBase.position.y=.038+ex*.79;ihsMesh.position.y=ex*.79;mark.position.y=.158+ex*.79;tileGroup.position.y=ex*.29;tileGroup.visible=ex>.025;
  if(stageRoot.visible){cpuRoot.position.y+=Math.sin(t*.0015)*.055;cpuRoot.updateMatrixWorld(true);const bounds=new T.Box3().setFromObject(chip);const top=stageRoot.position.y+.87;cpuRoot.position.y+=Math.max(0,top+.20-bounds.min.y);}
- if(progress>6){installLayout(t);return l;}board.group.visible=false;const k=Math.min(5,Math.floor(progress)),f=ease(progress-k),a=CAMERA_STAGES[k],b=CAMERA_STAGES[k+1];const target=new T.Vector3(...a.target).lerp(new T.Vector3(...b.target),f);if(macro&&current>=5)target.y=cpuRoot.position.y+ex*.2;else if(current>=5)target.y+=ex*.26;
+ if(progress>6){installLayout(t);return l;}board.group.visible=false;boardKey.visible=boardFill.visible=false;packaging.visible=true;const k=Math.min(5,Math.floor(progress)),f=ease(progress-k),a=CAMERA_STAGES[k],b=CAMERA_STAGES[k+1];const target=new T.Vector3(...a.target).lerp(new T.Vector3(...b.target),f);if(macro&&current>=5)target.y=cpuRoot.position.y+ex*.2;else if(current>=5)target.y+=ex*.26;
  const d=lerp(a.dist,b.dist,f)*zoomFactor*(camera.aspect<.8?1.22:1),cy=lerp(a.yaw,b.yaw,f)+camYawOffset,cp=T.MathUtils.clamp(lerp(a.pitch,b.pitch,f)+camPitchOffset,-.05,1.30);
  camera.position.set(target.x+d*Math.cos(cp)*Math.sin(cy),target.y+d*Math.sin(cp),target.z+d*Math.cos(cp)*Math.cos(cy));camera.lookAt(target);
  scene.updateMatrixWorld(true);
