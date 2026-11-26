@@ -91,9 +91,14 @@ export const references={
         "H300 wafer shipper datasheet · PDF",
         "https://www.entegris.com/content/dam/product-assets/h300series300mmsinglewafershippers/datasheet-h300-sws-5658.pdf",
         "300 mm single-wafer handling reference"
+      ],
+      [
+        "DGX Vera Rubin NVL72 User Guide",
+        "https://docs.nvidia.com/dgx/dgxvr-user-guide/",
+        "Official rack hardware, safety and operations; publisher provides PDF link"
       ]
     ],
-    "geometry": "300 mm diameter; patterned die map, yield, carrier and fabrication are schematic. Package contains two logic dies and eight illustrative HBM stacks. No proprietary floorplan or actual wafer offer.",
+    "geometry": "300 mm specimen; H300-inspired polycarbonate carrier, nominal 342.9 × 336.55 × 50.8 mm reference, eight edge cushions and removable clips. Wafer map, process layers, carrier details and assembly are schematic. Dual logic dies and eight illustrative HBM stacks. No proprietary manufacturing data.",
     "archive": null
   }
 };
