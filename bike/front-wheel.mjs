@@ -36,10 +36,17 @@ const tire=part('01 · Racing slick',[0,.13,0],true);
 const tireProfile=[[.214,-.044],[.228,-.052],[.248,-.058],[.265,-.055],[.279,-.044],[.291,-.027],[.298,-.012],[.300,0],[.298,.012],[.291,.027],[.279,.044],[.265,.055],[.248,.058],[.228,.052],[.214,.044],[.212,.025],[.212,-.025],[.214,-.044]];
 lathe(tire,tireProfile,rubber,160);
 // Surface-conforming annular sidewall texture; sidewall is curved, not a floating square decal.
-const labels=tex(detail?2048:1024,detail?2048:1024,(c,w,H)=>{c.clearRect(0,0,w,H);c.scale(w/2048,H/2048);c.translate(1024,1024);c.textAlign='center';c.textBaseline='middle';function arc(txt,a,rad,size,fill){c.save();c.rotate(a);c.font='bold '+size+'px Arial';c.fillStyle=fill;let advance=size*.70/rad;for(let i=0;i<txt.length;i++){c.save();c.rotate((i-(txt.length-1)/2)*advance);c.translate(0,-rad);c.fillText(txt[i],0,0);c.restore()}c.restore()}arc('MICHELIN',0,895,79,'#c7c8c1');arc('120 / 60 - 17',Math.PI,890,45,'#777c7b');arc('TUBELESS',Math.PI*.37,890,34,'#747876');arc('FRONT',-Math.PI*.30,890,34,'#747876');arc('RACING',Math.PI*.65,891,35,'#777b79');arc('ROTATION  ›',-Math.PI*.58,891,32,'#888b86');for(let i=0;i<32;i++){let a=i*Math.PI/16;c.save();c.rotate(a);c.fillStyle='#595e5b';c.fillRect(-1,-853,2,13);c.restore()}});
+// Unwrapped cylindrical label strip rather than a mostly empty 2048² texture.
+const labels=tex(detail?2048:1024,detail?256:128,(c,w,H)=>{
+ c.clearRect(0,0,w,H);c.scale(w/2048,H/256);c.textAlign='center';c.textBaseline='middle';
+ const label=(text,u,y,sz,width,color)=>{c.fillStyle=color;c.font='bold '+sz+'px Arial';c.fillText(text,u*2048,y,width)};
+ label('MICHELIN',.75,126,100,223,'#c7c8c1');label('120 / 60 - 17',.25,126,65,182,'#858986');
+ label('TUBELESS',.44,128,45,95,'#777c79');label('FRONT',.08,128,44,68,'#777c79');label('ROTATION  ›',.92,128,45,102,'#858986');
+ for(let i=0;i<32;i++){c.fillStyle='#646964';c.fillRect(i*64+1,30,1.7,14)}
+});labels.wrapS=T.RepeatWrapping;
 function wallZ(rad){let ar=[[.235,.054],[.248,.058],[.265,.055],[.279,.044],[.287,.034]];for(let i=0;i<ar.length-1;i++)if(rad>=ar[i][0]&&rad<=ar[i+1][0])return T.MathUtils.lerp(ar[i][1],ar[i+1][1],(rad-ar[i][0])/(ar[i+1][0]-ar[i][0]));return .034}
 const lm=new T.MeshStandardMaterial({map:labels,transparent:true,alphaTest:.12,depthWrite:false,roughness:.78,side:T.DoubleSide,polygonOffset:true,polygonOffsetFactor:-2});
-for(const side of [-1,1]){let pos=[],uv=[],idx=[];for(let j=0;j<=6;j++){let R=.235+j/6*.052;for(let i=0,N=seg(160);i<=N;i++){let a=i/N*Math.PI*2,x=R*Math.cos(a),y=R*Math.sin(a);pos.push(x,y,side*(wallZ(R)+.0007));uv.push(.5+side*x/.60,.5+y/.60);if(i&&j){let k=j*(N+1)+i;idx.push(k,k-1,k-N-2,k,k-N-2,k-N-1)}}}let geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();mesh(tire,geo,lm)}
+for(const side of [-1,1]){let pos=[],uv=[],idx=[];for(let j=0;j<=6;j++){let R=.235+j/6*.052;for(let i=0,N=seg(160);i<=N;i++){let a=i/N*Math.PI*2,x=R*Math.cos(a),y=R*Math.sin(a);pos.push(x,y,side*(wallZ(R)+.0007));uv.push(side>0?1-i/N:i/N+.5,j/6);if(i&&j){let k=j*(N+1)+i;idx.push(k,k-1,k-N-2,k,k-N-2,k-N-1)}}}let geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();mesh(tire,geo,lm)}
 // Actual sectioned rim barrel with bead flanges; not a filled orange disk.
 const rim=part('02 · Cast magnesium rim and hub',[0,0,0],true);
 lathe(rim,[[.199,-.039],[.210,-.047],[.218,-.047],[.220,-.043],[.218,-.036],[.215,-.033],[.208,-.030],[.202,-.023],[.202,.023],[.208,.030],[.215,.033],[.218,.036],[.220,.043],[.218,.047],[.210,.047],[.199,.039],[.196,.025],[.196,-.025],[.199,-.039]],orange);
