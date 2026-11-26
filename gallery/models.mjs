@@ -2,8 +2,8 @@ import * as T from '../t03/vendor/three.module.min.js';
 import {RoundedBoxGeometry} from '../t03/vendor/RoundedBoxGeometry.js';
 import {makeCPU,makeRAM} from '../v5/models.js';
 export const exhibits=[
- {id:'BS-001',name:'Core Ultra 9 285K',era:'Contemporary',caption:'24-core processor · Arrow Lake',pdf:'/v4/companions/bs-001-rev-b.pdf',kind:'cpu'},
- {id:'BS-002',name:'Noble DDR5 64 GB',era:'Contemporary',caption:'Dual-channel memory · 6400 MT/s',pdf:'/v5/companions/bs-002.pdf',kind:'ram'},
+ {id:'BS-001',name:'Core Ultra 9 285K',era:'Contemporary',caption:'24-core processor · Arrow Lake',pdf:'/references/index.html?asset=BS-001',kind:'cpu'},
+ {id:'BS-002',name:'Noble DDR5 64 GB',era:'Contemporary',caption:'Dual-channel memory · 6400 MT/s',pdf:'/references/index.html?asset=BS-002',kind:'ram'},
  {id:'HX-001',name:'Celestial orrery',era:'Heritage',caption:'Mechanical planetary display · original interpretation',kind:'orrery',preview:true},
  {id:'FX-001',name:'Molecular atelier',era:'Frontier',caption:'Speculative fabrication chamber · concept',kind:'atelier',preview:true}
 ];
