@@ -4,7 +4,7 @@ export const ENGINE_ASSET=new URL('./audio/nsr500-idle.mp3',import.meta.url).hre
 const KEY='mystuff.bs005.engineAudio.v1';
 export function loopBuffer(ctx,source){
  const rate=source.sampleRate,trim=Math.floor(rate*.09),end=source.length-trim,fade=Math.min(Math.floor(rate*.11),Math.floor((end-trim)/4)),start=trim+fade,length=end-start;
- if(length<rate*.2||fade<1)return source;
+ if(length<rate*.2||fade<2)return source;
  const output=ctx.createBuffer(source.numberOfChannels,length,rate);
  for(let ch=0;ch<source.numberOfChannels;ch++){const s=source.getChannelData(ch),d=output.getChannelData(ch);for(let i=0;i<length;i++){let a=s[start+i];if(i>=length-fade){let k=i-(length-fade),v=k/(fade-1);a=a*(1-v)+s[trim+k]*v}d[i]=a}}return output;
 }
