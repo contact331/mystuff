@@ -34,3 +34,6 @@ Deployed V5 at https://mystuff-seven.vercel.app/v5/index.html. Source 31ca9b31d4
 
 ## T10–T14 — MyStuff Market V6
 Live https://mystuff-seven.vercel.app/market/index.html, source e3c8a3e9290215ef6ad5a58999a228e0ad42a6d2, deployment dpl_Cb1zL245xWjPayc9Zgq4cvH1NuRB READY. Checkout browser test passed for two products, 23,329 CZK total, 76,671 remaining, order/receipt/delivery links. V5 and earlier routes unchanged. See docs/MARKET-V6.md for architecture, test evidence and limitations.
+
+## T15 — Engineering Kernel Lite
+Live https://mystuff-seven.vercel.app/engineering/index.html, deployed 4dc6d0c27896f438e8d99348b4881e5fbf6787ce, deployment dpl_BSj4Qz9ej21fEZkFkJncAR8MjyiS READY. EK-001 rotational pedestal definition generates live mesh, dimensional reference, BOM, QC, STL, 3MF and PDF dossier. EPR 34/100 candidate; closed mesh, bounds and XML checked in browser. Existing simulator and checkout logic unchanged. Scope and limitations in docs/ENGINEERING-LITE.md. Default PDF at /engineering/EK-001-Rev-A.pdf. Next benchmark recurring effort on eligible new objects before expanding adapters.
