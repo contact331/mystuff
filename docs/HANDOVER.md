@@ -40,3 +40,6 @@ Live https://mystuff-seven.vercel.app/engineering/index.html, deployed 4dc6d0c27
 
 ## T16 — Experience-first gallery stack
 Live https://mystuff-seven.vercel.app/gallery/index.html; source 55364d56b8e7278b755ac6a82a60df78f39ffa07; deployment dpl_5z2KSUMnb3wQpC7JS1aTA2QUC3w4 READY. Private gallery, three era departments, two animated previews, finish persistence, delivery ceremony, printable collection certificate and V5 return route. Market and gallery browser smoke passed; combined certificate/finish end-to-end test blocked by tool security check. See docs/EXPERIENCE-T16.md. Preserve optional Lite kernel and prioritize user-facing output.
+
+## T17 — RTX 5090 distinct UX loop
+Live https://mystuff-seven.vercel.app/gpu/index.html, source bc449d86c206410b8c8a4048ece102b3eb35d25c, deployment dpl_3dwVPCiVgBGKiN9z9fGaKd74hHX9 READY. GPU chassis access, alignment, seating, screw, auxiliary power, boot and real WebGL render chamber. Market third product routes to own experience. UI smoke and screenshots passed; remaining tests and novelty target in docs/UX-NOVELTY-T17.md. Gallery not a dependency. No orrery expansion.
