@@ -58,3 +58,6 @@ The PBR vertical slice is live at https://mystuff-seven.vercel.app/t03/index.htm
 
 ## T04 companion checkpoint
 User accepted T03's visual speed/quality point. F2 is the default; F3–F4 are selective. Follow [docs/ARTIFACT-STANDARD.md](docs/ARTIFACT-STANDARD.md). Mandatory technical companion PDF + dimensioned reference + manifest for each acquisition; printable exports optional. BS-001 companion is now live at https://mystuff-seven.vercel.app/t03/companions/bs-001.pdf and integrated into both V2 and T03. Source/assets remain on renderer/pbr-v3; deployed source commit 00a9fdb18c1da04888766b50cdcd13033ec9bdc3, deployment dpl_atyh1y3HsboXHoCLzzoUMuh5iSv6. Next prioritize full collision-free unboxing integration, preserve accepted T03 visual grade. See branch handover. No paid GPU infrastructure.
+
+## T06 full unboxing checkpoint
+Integrated F2 V3 candidate at https://mystuff-seven.vercel.app/v3/index.html. V2 and T03 retained. Source f3f7fdd1af3df6fdfec0f22f9ce2a370d03c877a on renderer/pbr-v3, deployment dpl_3VbZd5HKNeonE7EFaeUW3onUbinV. Collision audit: 121 sampled positions, no packaging/pedestal intersections. Follow branch docs/HANDOVER.md. Next: T07 acceptance and consolidate reusable engine before adding new artifacts; do not rebuild or escalate fidelity unnecessarily.
