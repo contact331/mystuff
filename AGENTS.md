@@ -52,3 +52,6 @@ Open http://localhost:8000/ for current source, or open /tmp/mystuff-v2.html dir
 
 ## Definition of done
 A visually reviewed, collision-free, interactive upgrade that is reproducible from Git and works at the live URL without regressions. If full visual review is blocked, mark candidate as pending acceptance, not done.
+
+## Latest checkpoint: T03
+The PBR vertical slice is live at https://mystuff-seven.vercel.app/t03/index.html; full V2 remains at the root. Read the [T03 handover](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/HANDOVER.md) on branch `renderer/pbr-v3` before continuing. T03 is pending visual acceptance; do not restart the completed prototype. Main remains the frozen baseline; future renderer development continues on the feature branch. For additive deployments preserve both the V2 root and the T03 study until the user approves replacement.
