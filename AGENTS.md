@@ -85,3 +85,6 @@ For every real-world acquisition, locate official manufacturer documentation, di
 
 ## T19.1 hardware startup payoff
 Applicable hardware acquisitions must include an inherent casino-style numerical payoff after installation/boot, with sourced baseline and target specifications, clear distinction between theoretical comparisons and measured workloads, low-cost bounded animation, and replay. GPU reference implementation: /gpu/install.html, gpu/startup.mjs. Preserve live workload functionality and avoid full-screen splash overhead.
+
+## T20 wafer acquisition
+BS-004 live https://mystuff-seven.vercel.app/wafer/index.html. Distinct semiconductor loop, source in wafer/, market catalog and official reference library extended. Synthetic wafer yield and assembly explicitly illustrative; 300 mm specimen preserved, real local toy attention calculation is not Rubin inference. Preserve existing product routes, no authored dossier, bounded VFX and casino numerics. See T20 handover for verification limits.
