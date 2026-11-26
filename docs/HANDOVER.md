@@ -37,3 +37,6 @@ Live https://mystuff-seven.vercel.app/market/index.html, source e3c8a3e9290215ef
 
 ## T15 — Engineering Kernel Lite
 Live https://mystuff-seven.vercel.app/engineering/index.html, deployed 4dc6d0c27896f438e8d99348b4881e5fbf6787ce, deployment dpl_BSj4Qz9ej21fEZkFkJncAR8MjyiS READY. EK-001 rotational pedestal definition generates live mesh, dimensional reference, BOM, QC, STL, 3MF and PDF dossier. EPR 34/100 candidate; closed mesh, bounds and XML checked in browser. Existing simulator and checkout logic unchanged. Scope and limitations in docs/ENGINEERING-LITE.md. Default PDF at /engineering/EK-001-Rev-A.pdf. Next benchmark recurring effort on eligible new objects before expanding adapters.
+
+## T16 — Experience-first gallery stack
+Live https://mystuff-seven.vercel.app/gallery/index.html; source 55364d56b8e7278b755ac6a82a60df78f39ffa07; deployment dpl_5z2KSUMnb3wQpC7JS1aTA2QUC3w4 READY. Private gallery, three era departments, two animated previews, finish persistence, delivery ceremony, printable collection certificate and V5 return route. Market and gallery browser smoke passed; combined certificate/finish end-to-end test blocked by tool security check. See docs/EXPERIENCE-T16.md. Preserve optional Lite kernel and prioritize user-facing output.
