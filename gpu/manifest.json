@@ -13,16 +13,27 @@
     "referencePSUW": 1000
   },
   "source": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/",
-  "model": "gpu/model.mjs",
-  "route": "/gpu/index.html",
+  "model": "gpu/fe-model.mjs",
+  "route": "/gpu/fe.html",
   "companion": {
+    "source": "gpu/dossier-rev-b.html",
+    "pdf": "gpu/dossier-rev-b.pdf",
+    "revision": "B",
+    "r2Key": "bs-003/rev-b/companion.pdf",
+    "pages": 20,
+    "bytes": 540102,
+    "sha256": "e1eba8379fcaaf0ba9dac8499ff0981022e152aa5f00ad76fde51f4f5a0704ad",
+    "plates": 18,
+    "engineering": "Detailed E1 reference; no production CAD or physical validation"
+  },
+  "virtualPriceCZK": 59990,
+  "novelty": "case access, alignment, seat, bracket, auxiliary power, boot, interactive WebGL workload; no ribbon, pedestal or synthetic performance comparison",
+  "companionArchive": {
     "source": "gpu/dossier.html",
     "pdf": "gpu/dossier.pdf",
     "r2Key": "bs-003/rev-a/companion.pdf",
     "pages": 2,
     "bytes": 68321,
     "sha256": "2fe1bacb3de1289ecec58c0b19f8d580a8e04b397bf979fd26689e2d192a422c"
-  },
-  "virtualPriceCZK": 59990,
-  "novelty": "case access, alignment, seat, bracket, auxiliary power, boot, interactive WebGL workload; no ribbon, pedestal or synthetic performance comparison"
+  }
 }
