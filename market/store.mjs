@@ -1,8 +1,8 @@
 export const KEY='mystuff.market.v1', COLLECTION='mystuff.collection.v1';
 export const catalog=[
- {id:'BS-001',category:'Processors',name:'Intel Core Ultra 9 285K',brand:'Intel',price:16790,spec:'24 cores · 5.7 GHz · LGA1851',desc:'A flagship desktop processor with a premium exhibition and motherboard installation sequence.',art:'cpu',dossier:'/v4/companions/bs-001-rev-b.pdf'},
- {id:'BS-002',category:'Memory',name:'Noble DDR5 64 GB',brand:'Noble',price:6490,spec:'2 × 32 GB · DDR5-6400 · UDIMM',desc:'Gold-finished concept memory kit with illuminated edges and sequential dual-channel installation.',art:'ram',dossier:'/v5/companions/bs-002.pdf'},
- {id:'BS-003',category:'Graphics cards',name:'GeForce RTX 5090',brand:'NVIDIA',price:59990,spec:'32 GB GDDR7 · Blackwell · Founders Edition',desc:'Unbox the premium card and accessories, align and seat the GPU, connect auxiliary power and run a live graphics workload.',art:'gpu',dossier:'/gpu/dossier-rev-b.pdf',route:'/gpu/fe.html'}
+ {id:'BS-001',category:'Processors',name:'Intel Core Ultra 9 285K',brand:'Intel',price:16790,spec:'24 cores · 5.7 GHz · LGA1851',desc:'A flagship desktop processor with a premium exhibition and motherboard installation sequence.',art:'cpu',dossier:'/references/index.html?asset=BS-001'},
+ {id:'BS-002',category:'Memory',name:'Noble DDR5 64 GB',brand:'Noble',price:6490,spec:'2 × 32 GB · DDR5-6400 · UDIMM',desc:'Gold-finished concept memory kit with illuminated edges and sequential dual-channel installation.',art:'ram',dossier:'/references/index.html?asset=BS-002'},
+ {id:'BS-003',category:'Graphics cards',name:'GeForce RTX 5090',brand:'NVIDIA',price:59990,spec:'32 GB GDDR7 · Blackwell · Founders Edition',desc:'Unbox the premium card and accessories, align and seat the GPU, connect auxiliary power and run a live graphics workload.',art:'gpu',dossier:'/references/index.html?asset=BS-003',route:'/gpu/fe.html'}
 ];
 export const delivery={locker:{label:'MyStuff Box · Teplice',fee:49,description:'Virtual collection locker',eta:'Next day'},home:{label:'Home delivery',fee:99,description:'Virtual courier delivery',eta:'1–2 days'}};
 export const initial=()=>({schema:1,balance:100000,cart:{},orders:[],delivery:'locker',serial:1});
