@@ -1,0 +1,53 @@
+// Engineering Kernel Lite v1.0 — deterministic, offline-capable, dependency-free.
+const finite=x=>typeof x==='number'&&Number.isFinite(x);
+export const round=(x,n=3)=>Number(x.toFixed(n));
+const assert=(x,m)=>{if(!x)throw Error(m)};
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const sub=(a,b)=>a.map((v,i)=>v-b[i]),dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0);
+const xml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
+export function generate(d,overrides={}){
+ assert(d.schemaVersion===1&&d.units==='mm'&&d.kind==='axisymmetric-solid','Unsupported definition schema or units');
+ const p={...d.parameters,...overrides},n=p.segments;
+ assert(Number.isInteger(n)&&n>=24&&n<=256&&n%4===0,'Segments must be a multiple of 4 between 24 and 256');
+ assert(finite(p.diameterScale)&&p.diameterScale>=.25&&p.diameterScale<=4,'Diameter scale out of range');
+ assert(finite(p.heightScale)&&p.heightScale>=.25&&p.heightScale<=4,'Height scale out of range');
+ assert(finite(p.dimensionalToleranceMm)&&p.dimensionalToleranceMm>0&&p.dimensionalToleranceMm<=5,'Invalid proposed tolerance');
+ assert(d.materials[p.material]&&finite(d.materials[p.material].densityGcm3)&&d.materials[p.material].densityGcm3>0,'Unknown material');
+ assert(Array.isArray(d.profile)&&d.profile.length>=2&&d.profile.length<=64,'Invalid profile');
+ const prof=d.profile.map(q=>{assert(finite(q.z)&&finite(q.r)&&q.z>=0&&q.r>0,'Invalid profile vertex');return {z:round(q.z*p.heightScale,6),r:round(q.r*p.diameterScale,6),band:q.band||''}});
+ assert(prof[0].z===0&&prof.at(-1).z>0,'Profile must start at zero and have positive height');
+ for(let i=1;i<prof.length;i++){const a=prof[i-1],b=prof[i];assert(b.z>=a.z,'Profile must ascend');assert(b.z!==a.z||b.r!==a.r,'Duplicate profile vertex');if(b.z===a.z)assert(i>1&&i<prof.length-1&&prof[i-2].z!==b.z&&prof[i+1].z!==b.z,'Only one radial step per height');}
+ const vertices=[],triangles=[];
+ for(const q of prof)for(let j=0;j<n;j++){const t=j*2*Math.PI/n;vertices.push([round(q.r*Math.cos(t),8),round(q.r*Math.sin(t),8),q.z]);}
+ for(let i=0;i<prof.length-1;i++)for(let j=0;j<n;j++){const a=i*n+j,b=i*n+(j+1)%n,c=(i+1)*n+j,e=(i+1)*n+(j+1)%n;triangles.push([a,b,e],[a,e,c]);}
+ const bottom=vertices.push([0,0,0])-1,top=vertices.push([0,0,prof.at(-1).z])-1;
+ for(let j=0;j<n;j++){triangles.push([bottom,(j+1)%n,j],[top,(prof.length-1)*n+j,(prof.length-1)*n+(j+1)%n]);}
+ let analytic=0;for(let i=1;i<prof.length;i++){const a=prof[i-1],b=prof[i];analytic+=Math.PI*(b.z-a.z)*(a.r*a.r+a.r*b.r+b.r*b.r)/3}
+ const min=[0,1,2].map(k=>Math.min(...vertices.map(v=>v[k]))),max=[0,1,2].map(k=>Math.max(...vertices.map(v=>v[k]))),bounds=max.map((v,i)=>v-min[i]);
+ let volume=0,degenerate=0;const edges=new Map();
+ for(const f of triangles){const [a,b,c]=f.map(i=>vertices[i]),normal=cross(sub(b,a),sub(c,a));if(dot(normal,normal)<1e-16)degenerate++;volume+=dot(a,cross(b,c))/6;for(let i=0;i<3;i++){const x=f[i],y=f[(i+1)%3],k=Math.min(x,y)+':'+Math.max(x,y),e=edges.get(k)||{n:0,dir:0};e.n++;e.dir+=x<y?1:-1;edges.set(k,e)}}
+ const nonmanifold=[...edges.values()].filter(e=>e.n!==2).length,inconsistent=[...edges.values()].filter(e=>e.dir!==0).length;
+ const diameter=Math.max(...prof.map(q=>q.r))*2,height=prof.at(-1).z,err=Math.abs(volume-analytic)/analytic*100;
+ const checks=[
+ {name:'Closed edge topology',pass:nonmanifold===0,detail:nonmanifold+' non-manifold edges'},
+ {name:'Consistent triangle orientation',pass:inconsistent===0&&volume>0,detail:inconsistent+' inconsistent edges; positive signed volume'},
+ {name:'Nondegenerate faces',pass:degenerate===0,detail:degenerate+' degenerate triangles'},
+ {name:'Nominal envelope',pass:Math.abs(bounds[0]-diameter)<1e-5&&Math.abs(bounds[1]-diameter)<1e-5&&Math.abs(bounds[2]-height)<1e-5,detail:bounds.map(x=>round(x)).join(' × ')+' mm'},
+ {name:'Mesh / analytic volume agreement',pass:err<1.5,detail:round(err,4)+'% polygonization difference'},
+ {name:'Manufacturing tolerance declared',pass:true,detail:'±'+p.dimensionalToleranceMm+' mm proposed; NOT measured'}
+ ];
+ const material=d.materials[p.material],mass=volume/1000*material.densityGcm3;
+ const bom=d.manufacturing.components.map(c=>({...c,material:c.material==='selected'?p.material:c.material,solidMassG:round(mass,2),massStatus:'100% solid geometric estimate, not slicer consumption'}));
+ const pass=checks.every(c=>c.pass);
+ const scoring=[['Requirements',7,10],['Precision geometry and tolerances',pass?10:3,15],['Engineering architecture',5,10],['Functional / physics simulation',0,15],['Materials and BOM',5,10],['Manufacturing process',3,15],['Verification and validation',pass?4:0,15],['Safety and compliance',0,5],['Procurement and costing',0,5]].map(([name,score,max])=>({name,score,max}));
+ const score=scoring.reduce((s,x)=>s+x.score,0);
+ return {definition:{...d,parameters:p},profile:prof,vertices,triangles,bounds:bounds.map(x=>round(x)),diameter:round(diameter),height:round(height),volumeMm3:round(volume),analyticVolumeMm3:round(analytic),solidMassG:round(mass,2),meshErrorPercent:round(err,4),checks,pass,bom,score,scoring,tier:score>=26?'E2 candidate':'E1',warnings:['No self-intersection solver beyond constrained rotational profile','No physical or process validation','No native CAD B-rep / STEP; STL and 3MF are tessellated meshes','Suggested tolerance is not a manufacturing guarantee']};
+}
+export function stl(g){let s='solid '+g.definition.id+'\n';for(const t of g.triangles){const [a,b,c]=t.map(i=>g.vertices[i]);let n=cross(sub(b,a),sub(c,a));const l=Math.hypot(...n);n=n.map(x=>x/l);s+='  facet normal '+n.join(' ')+'\n    outer loop\n'+[a,b,c].map(v=>'      vertex '+v.join(' ')).join('\n')+'\n    endloop\n  endfacet\n'}return s+'endsolid '+g.definition.id+'\n'}
+const enc=new TextEncoder();
+function crc32(a){let c=0xffffffff;for(const v of a){c^=v;for(let i=0;i<8;i++)c=(c>>>1)^((c&1)?0xedb88320:0)}return(c^0xffffffff)>>>0}
+function packageZip(files){const chunks=[],central=[];let offset=0,cl=0;for(const [name,txt] of Object.entries(files)){const f=enc.encode(name),b=enc.encode(txt),crc=crc32(b),h=new Uint8Array(30+f.length),v=new DataView(h.buffer);v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(6,0x800,true);v.setUint16(12,33,true);v.setUint32(14,crc,true);v.setUint32(18,b.length,true);v.setUint32(22,b.length,true);v.setUint16(26,f.length,true);h.set(f,30);chunks.push(h,b);const c=new Uint8Array(46+f.length),w=new DataView(c.buffer);w.setUint32(0,0x02014b50,true);w.setUint16(4,20,true);w.setUint16(6,20,true);w.setUint16(8,0x800,true);w.setUint16(14,33,true);w.setUint32(16,crc,true);w.setUint32(20,b.length,true);w.setUint32(24,b.length,true);w.setUint16(28,f.length,true);w.setUint32(42,offset,true);c.set(f,46);central.push(c);cl+=c.length;offset+=h.length+b.length;}const end=new Uint8Array(22),v=new DataView(end.buffer);v.setUint32(0,0x06054b50,true);v.setUint16(8,central.length,true);v.setUint16(10,central.length,true);v.setUint32(12,cl,true);v.setUint32(16,offset,true);const out=new Uint8Array(offset+cl+22);let p=0;for(const b of [...chunks,...central,end]){out.set(b,p);p+=b.length}return out}
+export function threeMF(g){return packageZip({'[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="model" ContentType="application/vnd.ms-package.3dmanufacturing-3dmodel+xml"/></Types>','_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Target="/3D/3dmodel.model" Id="rel0" Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel"/></Relationships>','3D/3dmodel.model':'<?xml version="1.0" encoding="UTF-8"?><model unit="millimeter" xml:lang="en-US" xmlns="http://schemas.microsoft.com/3dmanufacturing/core/2015/02"><metadata name="Title">'+xml(g.definition.name)+'</metadata><resources><object id="1" type="model"><mesh><vertices>'+g.vertices.map(v=>'<vertex x="'+v[0]+'" y="'+v[1]+'" z="'+v[2]+'"/>').join('')+'</vertices><triangles>'+g.triangles.map(t=>'<triangle v1="'+t[0]+'" v2="'+t[1]+'" v3="'+t[2]+'"/>').join('')+'</triangles></mesh></object></resources><build><item objectid="1"/></build></model>'})}
+export function bomCSV(g){const rows=[['ID','Component','Quantity','Material','Process','Solid mass (g)','Mass status'],...g.bom.map(b=>[b.id,b.name,b.quantity,b.material,b.process,b.solidMassG,b.massStatus])];return rows.map(r=>r.map(s=>'"'+String(s).replaceAll('"','""')+'"').join(',')).join('\r\n')+'\r\n'}
+export function report(g){const {vertices,triangles,profile,...r}=g;return {...r,mesh:{vertices:vertices.length,triangles:triangles.length},profile}}
+export function drawing(g){const s=Math.min(260/g.diameter,126/g.height),cx=230,base=300,pts=g.profile.map(p=>[cx+p.r*s,base-p.z*s]),mirror=[...pts].reverse().map(([x,y])=>[2*cx-x,y]);const r=g.diameter*s/2,top=base-g.height*s;const label=(x,y,t,size=12)=>'<text x="'+x+'" y="'+y+'" font-size="'+size+'" fill="#d7e7f4">'+xml(t)+'</text>';return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400"><defs><pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" stroke="#577b9a" stroke-opacity=".20" fill="none"/></pattern></defs><rect width="760" height="400" fill="#142e46"/><rect width="760" height="400" fill="url(#grid)"/><g font-family="monospace">'+label(24,28,g.definition.id+' / '+g.definition.name.toUpperCase(),15)+label(24,48,'DIMENSIONAL REFERENCE / mm / REV '+g.definition.revision,11)+'<g fill="#294b64" stroke="#bfd9eb" stroke-width="1.3"><polygon points="'+[...pts,...mirror].map(v=>v.join(',')).join(' ')+'"/><circle cx="570" cy="170" r="'+r+'"/>'+[...new Set(g.profile.map(p=>p.r))].filter(x=>x<g.diameter/2).map(x=>'<circle cx="570" cy="170" r="'+x*s+'" fill="none" stroke="#83aac7" stroke-dasharray="3 3"/>').join('')+'</g><g stroke="#b9d8ec" fill="none" stroke-width=".9"><path d="M'+(cx-r)+' 315V344M'+(cx+r)+' 315V344M'+(cx-r)+' 337H'+(cx+r)+'M'+(cx-r-15)+' '+top+'H'+(cx-r-35)+'M'+(cx-r-15)+' '+base+'H'+(cx-r-35)+'M'+(cx-r-28)+' '+top+'V'+base+'"/><path d="M'+cx+' '+(top-10)+'V'+(base+8)+'M440 170H700M570 40V300" stroke-dasharray="5 4"/></g>'+label(cx-32,332,'Ø '+g.diameter)+label(Math.max(15,cx-r-78),(top+base)/2,g.height+' mm')+label(175,365,'SIDE ELEVATION')+label(530,324,'TOP VIEW')+label(24,385,'PROPOSED TOLERANCE ±'+g.definition.parameters.dimensionalToleranceMm+' mm · NO PHYSICAL VALIDATION',11)+'</g></svg>'}
