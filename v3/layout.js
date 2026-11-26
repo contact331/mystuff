@@ -11,7 +11,7 @@ export function layoutAt(p){
  const rl=ease(retail*2), rs=ease((retail-.42)/.58);
  const tl=ease(tray*2), ts=ease((tray-.42)/.58);
  const pl=ease(pick*2), ps=ease((pick-.42)/.58);
- const park=9*ps;
+ const park=12.5*ps;
  const trayX=3.85*ts, trayY=.41+1.45*tl-.98*ts, trayZ=.25*ts;
  const chipX=mix(trayX,0,ps),chipY=mix(trayY+.13+1.35*pl,2.16,ps),chipZ=mix(trayZ,0,ps);
  return {ribbon, gift,retail,tray,pick,exhibit,park, giftLid:[-3.5*gs,1.09+1.9*gl-2.84*gs,-3.8*gs], retailLid:[3.8*rs,.86+1.8*rl-2.53*rs,-2.4*rs], trayPos:[trayX,trayY,trayZ],cpu:[p<4?trayX:chipX,p<4?trayY+.13:chipY,p<4?trayZ:chipZ],pedestal:ease((exhibit-.15)/.85)};
@@ -23,5 +23,5 @@ export const CAMERA_STAGES=[
  {target:[0,.55,0],dist:10.5,pitch:.67,yaw:.20},
  {target:[2.1,.6,.1],dist:10.0,pitch:.68,yaw:.18},
  {target:[0,2.16,0],dist:4.7,pitch:.35,yaw:.20},
- {target:[0,1.50,0],dist:7.7,pitch:.34,yaw:.20}
+ {target:[0,1.18,0],dist:9.6,pitch:.34,yaw:.20}
 ];
