@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "collection": "MyStuff",
+  "assets": [],
+  "baseline": {
+    "id": "BS-001",
+    "version": "V2",
+    "gitCommit": "87a5d8dc4154de7cf65bd110eecffaa10923ec57"
+  },
+  "note": "Baseline is self-contained. No external dependencies."
+}
