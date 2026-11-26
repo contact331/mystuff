@@ -100,5 +100,33 @@ export const references={
     ],
     "geometry": "300 mm specimen; H300-inspired polycarbonate carrier, nominal 342.9 × 336.55 × 50.8 mm reference, eight edge cushions and removable clips. Wafer map, process layers, carrier details and assembly are schematic. Dual logic dies and eight illustrative HBM stacks. No proprietary manufacturing data.",
     "archive": null
-  }
+  },
+  "BS-005": {
+  "name": "Honda NSR500 · 1995",
+  "scope": "Honda official 1995 archive and Repsol historical material. Road controls, purchase and helmet case are fictional tribute elements.",
+  "docs": [
+    [
+      "Honda HRC 1995 season archive",
+      "https://www.honda.co.jp/HRC/repsolhondateam/archives/1995/",
+      "Machine imagery, 1995 specifications, riders and season results"
+    ],
+    [
+      "Honda Racing history",
+      "https://honda.racing/page/history",
+      "1992 Big Bang development, 1994 title, later racing history"
+    ],
+    [
+      "Repsol NSR500 / RC213V comparison",
+      "https://www.boxrepsol.com/en/motogp-en/honda-nsr500-vs-rc213v/",
+      "Engine, brakes, tyres and archival race imagery; retrospective dimensions differ from Honda archive"
+    ],
+    [
+      "Repsol engine evolution",
+      "https://www.boxrepsol.com/en/technology/the-honda-nsr500-engine-evolution/",
+      "Engine development and year-specific power figures"
+    ]
+  ],
+  "geometry": "Honda 1995 archive: 2010 × 600 × 1080 mm, wheelbase 1400 mm, clearance 105 mm; procedural approximations, schematic internal assemblies, not measured CAD.",
+  "archive": "/bike/dossier.html"
+}
 };
