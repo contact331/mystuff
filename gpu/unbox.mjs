@@ -13,22 +13,22 @@ scene.add(new T.HemisphereLight(0xdbe9ff,0x374131,1.5));const l=new T.Directiona
 box(scene,100,.24,100,.05,mat(0x26343e,.42,.22),0,-.22,0);
 const pack=new T.Group();scene.add(pack);
 const W=21.5,D=13.4;box(pack,W,.38,D,.06,black,0,.18,0);
-for(const x of [-10.6,10.6])box(pack,.28,3.0,D,.04,black,x,1.67,0);
-for(const z of [-6.55,6.55])box(pack,W,3.0,.28,.04,black,0,1.67,z);
+for(const x of [-10.6,10.6])box(pack,.28,3.85,D,.04,black,x,2.095,0);
+for(const z of [-6.55,6.55])box(pack,W,3.85,.28,.04,black,0,2.095,z);
 box(pack,21.4,.18,.035,.006,green,0,1.04,6.70);box(pack,21.4,.18,.035,.006,green,0,1.04,-6.70);
 const topTex=tex(1536,960,(c,w,z)=>{const g=c.createLinearGradient(0,0,w,z);g.addColorStop(0,'#171b20');g.addColorStop(.64,'#252a30');g.addColorStop(1,'#080c10');c.fillStyle=g;c.fillRect(0,0,w,z);for(let i=0;i<15;i++){c.strokeStyle='#80929a0e';c.lineWidth=2;c.beginPath();c.moveTo(w*.43+i*65,0);c.lineTo(w*.12+i*65,z);c.stroke()}c.fillStyle='#75b832';c.fillRect(w*.76,0,w*.24,z);c.fillStyle='#e6eae7';c.font='bold 48px Arial';c.fillText('NVIDIA',64,86);c.font='bold 116px Arial';c.fillText('GEFORCE RTX',64,260,w*.65);c.font='bold 180px Arial';c.fillText('5090',57,444);c.font='30px Arial';c.fillText('BLACKWELL  /  32 GB GDDR7',70,520);c.fillStyle='#102015';c.font='bold 29px Arial';c.save();c.translate(w*.89,z*.50);c.rotate(-Math.PI/2);c.textAlign='center';c.fillText('PREMIUM GRAPHICS',0,0);c.restore();c.fillStyle='#c3c9cb';c.font='22px Arial';c.fillText('MY STUFF  /  VIRTUAL RETAIL EDITION',66,z-55)});
-const lid=new T.Group();pack.add(lid);lid.position.set(0,3.18,0);box(lid,21.85,.44,13.72,.09,black,0,.2,0);for(const x of [-10.77,10.77])box(lid,.24,.58,13.65,.04,edge,x,-.12,0);for(const z of [-6.71,6.71])box(lid,21.85,.58,.24,.04,edge,0,-.12,z);const top=mesh(lid,new T.PlaneGeometry(21.58,13.45),new T.MeshStandardMaterial({map:topTex,roughness:.72}),0,.43,0);top.rotation.x=-Math.PI/2;
+const lid=new T.Group();pack.add(lid);lid.position.set(0,4.03,0);box(lid,21.85,.44,13.72,.09,black,0,.2,0);for(const x of [-10.77,10.77])box(lid,.24,.58,13.65,.04,edge,x,-.12,0);for(const z of [-6.71,6.71])box(lid,21.85,.58,.24,.04,edge,0,-.12,z);const top=mesh(lid,new T.PlaneGeometry(21.58,13.45),new T.MeshStandardMaterial({map:topTex,roughness:.72}),0,.43,0);top.rotation.x=-Math.PI/2;
 const labelTex=tex(1024,160,(c,w,z)=>{c.fillStyle='#14191d';c.fillRect(0,0,w,z);c.fillStyle='#e3e8e7';c.font='bold 56px Arial';c.fillText('GEFORCE RTX 5090',32,95);c.fillStyle='#80bc43';c.fillRect(760,0,264,z);c.fillStyle='#182b15';c.font='bold 34px Arial';c.fillText('32 GB',800,90)});
 mesh(lid,new T.PlaneGeometry(15.2,.53),new T.MeshStandardMaterial({map:labelTex,roughness:.75}),-2,-.10,6.85);
-const seal=new T.Group();pack.add(seal);const sealTex=tex(512,128,(c,w,z)=>{c.fillStyle='#bac2ba';c.fillRect(0,0,w,z);c.fillStyle='#3d473e';c.font='bold 25px Arial';c.textAlign='center';c.fillText('FACTORY SEAL / VIRTUAL',w/2,77)});const sealm=new T.MeshStandardMaterial({map:sealTex,roughness:.68});mesh(seal,new T.PlaneGeometry(3.8,.55),sealm,0,2.98,6.87);
+const seal=new T.Group();pack.add(seal);const sealTex=tex(512,128,(c,w,z)=>{c.fillStyle='#bac2ba';c.fillRect(0,0,w,z);c.fillStyle='#3d473e';c.font='bold 25px Arial';c.textAlign='center';c.fillText('FACTORY SEAL / VIRTUAL',w/2,77)});const sealm=new T.MeshStandardMaterial({map:sealTex,roughness:.68});mesh(seal,new T.PlaneGeometry(3.8,.55),sealm,0,3.83,6.87);
 const insert=new T.Group();pack.add(insert);box(insert,20.7,.47,12.65,.12,foam,0,.64,0);
-for(const x of [-9.75,7.3])box(insert,x<0?1.2:1.0,1.95,8.0,.17,foam,x,1.7,-.75);
-for(const z of [-5.55,3.96])box(insert,16.2,1.95,1.20,.16,foam,-1.45,1.7,z);
+for(const x of [-9.75,7.3])box(insert,x<0?1.2:1.0,1.95,7.0,.17,foam,x,1.7,-1.25);
+for(const z of [-5.55,3.05])box(insert,16.2,1.95,(z>0?.50:1.20),.16,foam,-1.45,1.7,z);
 box(insert,2.1,1.95,12.4,.16,foam,9.2,1.7,0);box(insert,4.4,1.95,.65,.15,foam,5.0,1.7,5.7);box(insert,9.5,1.95,.5,.12,foam,-4.95,1.7,5.8);
 // Lift-out full top foam cover, covers GPU and accessory recesses.
-const foamCover=new T.Group();pack.add(foamCover);box(foamCover,20.5,.43,12.5,.19,foam,0,2.87,0);
-const foamLabel=tex(512,128,(c,w,z)=>{c.fillStyle='#272c2c';c.fillRect(0,0,w,z);c.fillStyle='#a4aeb0';c.font='bold 30px Arial';c.textAlign='center';c.fillText('LIFT PROTECTIVE INSERT',w/2,74)});const ft=mesh(foamCover,new T.PlaneGeometry(7,.7),new T.MeshStandardMaterial({map:foamLabel,roughness:1}),0,3.1,0);ft.rotation.x=-Math.PI/2;
-const gpu=createGPU(h);scene.add(gpu);gpu.rotation.x=-Math.PI/2;gpu.position.set(-1.55,1.82,-.8);
+const foamCover=new T.Group();pack.add(foamCover);box(foamCover,20.5,.43,12.5,.19,foam,0,3.73,0);
+const foamLabel=tex(512,128,(c,w,z)=>{c.fillStyle='#272c2c';c.fillRect(0,0,w,z);c.fillStyle='#a4aeb0';c.font='bold 30px Arial';c.textAlign='center';c.fillText('LIFT PROTECTIVE INSERT',w/2,74)});const ft=mesh(foamCover,new T.PlaneGeometry(7,.7),new T.MeshStandardMaterial({map:foamLabel,roughness:1}),0,3.96,0);ft.rotation.x=-Math.PI/2;
+const gpu=createGPU(h);scene.add(gpu);gpu.rotation.x=-Math.PI/2;gpu.position.set(-1.55,2.18,-.8);
 const sleeve=new T.Group();gpu.add(sleeve);const esd=new T.MeshPhysicalMaterial({color:0xa9b4c2,metalness:.38,roughness:.29,transparent:true,opacity:.30,depthWrite:false,side:T.DoubleSide});
 box(sleeve,14.77,6.86,2.57,.35,esd);const seam=mat(0x9daab5,.38,.35);for(const x of [-7.35,7.35])box(sleeve,.09,6.7,.17,.02,seam,x,0,1.24);for(const y of [-3.36,3.36])box(sleeve,14.5,.07,.13,.02,seam,0,y,1.24);
 const warning=tex(512,256,(c,w,z)=>{c.fillStyle='#e1c750';c.fillRect(0,0,w,z);c.fillStyle='#202920';c.font='bold 40px Arial';c.textAlign='center';c.fillText('ESD PROTECTION',w/2,85);c.font='27px Arial';c.fillText('STATIC SENSITIVE DEVICE',w/2,151);c.fillText('VIRTUAL PACKAGING',w/2,195)});mesh(sleeve,new T.PlaneGeometry(3.1,1.5),new T.MeshStandardMaterial({map:warning,roughness:.7}),-4.7,-1.7,1.33);
@@ -50,10 +50,10 @@ let flip=false;const canvas=renderer.domElement;canvas.addEventListener('pointer
 function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}addEventListener('resize',resize);resize();cam();ui();
 const v=new T.Vector3();let last=performance.now();function frame(t){const dt=Math.min(.1,(t-last)/1000);last=t;const a=1-Math.exp(-dt*6);
  function move(obj,x,y,z){obj.position.lerp(v.set(x,y,z),a)}
- seal.visible=step===0;move(lid,0,step>=2?4.7:3.18,step>=2?-14.1:0);lid.rotation.x+=((step>=2?-.43:0)-lid.rotation.x)*a;lid.visible=step<5;
- move(foamCover,step>=3?-14:0,step>=3?3.8:0,step>=3?-7:0);foamCover.visible=step>=2&&step<5;
+ seal.visible=step===0;move(lid,0,step>=2?5.5:4.03,step>=2?-14.1:0);lid.rotation.x+=((step>=2?-.43:0)-lid.rotation.x)*a;lid.visible=step<5;
+ move(foamCover,step>=3?-14:0,step>=3?3.8:0,step>=3?-7:0);foamCover.visible=step<5;
  const off=step>=5?-18.5:0;move(pack,0,0,off);pack.visible=step<6;
  manuals.visible=step>=3&&step<6;cable.visible=step>=3&&step<6;move(manuals,step>=4?-5.7:0,step>=4?.3:0,step>=4?3.8:0);move(cable,step>=4?5.2:0,step>=4?.25:0,step>=4?3.6:0);
- move(gpu,step>=5?0:-1.55,step>=5?3.8:1.82,step>=5?0:-.8);gpu.rotation.x+=((step>=6?(flip?Math.PI*.76:-.70):-Math.PI/2)-gpu.rotation.x)*a;gpu.rotation.y+=((step>=6?.10:0)-gpu.rotation.y)*a;sleeve.visible=$('esd').checked&&step<6;
+ move(gpu,step>=5?0:-1.55,step>=5?3.8:2.18,step>=5?0:-.8);gpu.rotation.x+=((step>=6?(flip?Math.PI*.76:-.70):-Math.PI/2)-gpu.rotation.x)*a;gpu.rotation.y+=((step>=6?.10:0)-gpu.rotation.y)*a;sleeve.visible=$('esd').checked&&step<6;
  target.lerp(goal,a);yaw+=(gyaw-yaw)*a;pitch+=(gpitch-pitch)*a;dist+=(gdist-dist)*a;const dd=dist*(camera.aspect<.75?1.55:1);camera.position.set(target.x+dd*Math.cos(pitch)*Math.sin(yaw),target.y+dd*Math.sin(pitch),target.z+dd*Math.cos(pitch)*Math.cos(yaw));camera.lookAt(target);renderer.render(scene,camera);requestAnimationFrame(frame);}
 window.__unbox={state:()=>({step,manualRead,cableRead,flip,sleeve: sleeve.visible,hologram:!$('hologram').hidden,position:gpu.position.toArray(),install:document.querySelector('#control a')?.getAttribute('href')}),gpu,scene};requestAnimationFrame(frame);
