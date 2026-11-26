@@ -7,7 +7,8 @@ import {acquired,saveInstalled} from '../v5/registry.js';
 import {ease} from '../v4/layout.js';
 import {createGPU} from './fe-model.mjs';
 import {sensory} from './sensory.mjs';
-const av=sensory();
+import {startupNumbers} from './startup.mjs';
+const av=sensory(),numbers=startupNumbers(av);
 const $=id=>document.getElementById(id);
 const scene=new T.Scene();scene.background=new T.Color(0x0c141e);scene.fog=new T.Fog(0x0c141e,65,110);
 let renderer;try{renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'})}catch(e){$('hint').textContent='WebGL unavailable on this device.';throw e}
@@ -40,7 +41,7 @@ const screw=mesh(chassis,new T.CylinderGeometry(.18,.18,.28,16),trim,-7.0,7.20,1
 let cable=null;function cableAt(pos){if(cable){scene.remove(cable);cable.geometry.dispose();}const curve=new T.CatmullRomCurve3([new T.Vector3(7.6,3,-5.3),new T.Vector3(7.4,7.0,-3),new T.Vector3(4.0,8.8,0),new T.Vector3(pos.x,pos.y+.48,pos.z)]);cable=mesh(scene,new T.TubeGeometry(curve,32,.15,8,false),rubber);}
 const camera=new T.PerspectiveCamera(39,1,.1,180);let yaw=.13,pitch=.65,dist=44,target=new T.Vector3(.4,2.8,3.6),gyaw=yaw,gpitch=pitch,gdist=dist,goal=target.clone(),drag=null;
 let step=0,alignment=0,connected=0,glassOpen=0,seat=0,fasten=0,powered=false,labMode=false,progressTime=performance.now(),sound=false,ctx=null,timer,frameCount=0,stamp=performance.now(),fps=0;
-const stages=['Access','Alignment','Seat','Secure','Power cable','Boot','Render lab'];
+const stages=['Access','Alignment','Seat','Secure','Power cable','Boot','Performance unlock','Render lab'];
 const copy=[
  ['Open the workstation','Remove the glass panel to expose the PCIe slot.'],
  ['Align the graphics card','Move the card from its anti-static tray to the highlighted PCIe slot.'],
@@ -48,6 +49,7 @@ const copy=[
  ['Secure the bracket','Turn the retention screw to secure the card to the chassis.'],
  ['Connect auxiliary power','Slide the connector into its virtual socket.'],
  ['First boot','Power up the workstation and watch the fans spin.'],
+ ['Performance unlocked','Watch the RTX 5090 reference specifications count up from the RTX 4090 baseline.'],
  ['Run graphics workloads','Change geometry density, material and lighting in a live rendered scene.']
 ];
 const guideMat=new T.MeshBasicMaterial({color:0x8bff70,transparent:true,opacity:.60,depthWrite:false});const guide=box(chassis,6.3,.025,.34,.005,guideMat,-.8,.56,1.1);guide.visible=false;
@@ -64,10 +66,10 @@ function ui(){ $('heading').textContent=copy[step][0];$('hint').textContent=copy
  '<button data-do="lab">Enter render chamber</button><a href="/market/index.html" style="display:block;margin-top:12px;text-align:center">Return to Market ↗</a>'
  ];$('control').innerHTML=controls[step];guide.visible=step===1||step===2;screw.visible=step>=3;
 }
-function next(msg){step++;cam(step);ui();av.event(['click','open','align','seat','screw','connect','boot'][step]);if(step===6)av.fan(true);flash(msg)}
+function next(msg){step++;cam(step);ui();av.event(['click','open','align','seat','screw','connect','boot'][step]);if(step===6){av.fan(true);numbers.show(true);}flash(msg)}
 document.addEventListener('input',e=>{const n=+e.target.value/100;if(e.target.id==='align'){alignment=n;$('alignText').textContent=Math.round(n*100)+'%';document.querySelector('[data-do=aligned]').disabled=n<.99}if(e.target.id==='fasten'){fasten=n;$('fastenText').textContent=Math.round(n*100)+'%';document.querySelector('[data-do=secure]').disabled=n<.99}if(e.target.id==='plug'){connected=n;$('plugText').textContent=Math.round(n*100)+'%';document.querySelector('[data-do=connect]').disabled=n<.99}});
 document.addEventListener('click',e=>{const a=e.target.closest('[data-do]')?.dataset.do;if(a==='open'&&step===0){next('Chassis unlocked')}else if(a==='aligned'&&step===1&&alignment>=.99){alignment=1;next('PCIe alignment locked')}else if(a==='seat'&&step===2){next('PCIe card seated')}else if(a==='secure'&&step===3&&fasten>=.99){fasten=1;next('Bracket secured')}else if(a==='connect'&&step===4&&connected>=.99){connected=1;next('Power connected')}else if(a==='boot'&&step===5){powered=true;saveInstalled('BS-003');next('System online · 32 GB GDDR7')}else if(a==='lab'&&step===6){enterLab()}});
-$('reset').onclick=()=>{labMode=false;$('lab').hidden=true;document.querySelector('.panel').hidden=false;step=0;alignment=connected=fasten=seat=0;powered=false;av.fan(false);cam(0);ui();flash('Installation restarted')};
+$('reset').onclick=()=>{labMode=false;$('lab').hidden=true;document.querySelector('.panel').hidden=false;step=0;alignment=connected=fasten=seat=0;powered=false;numbers.hide(true);av.fan(false);cam(0);ui();flash('Installation restarted')};
 
 $('overview').onclick=()=>{if(labMode){goal.set(0,1.8,0);gdist=19;gyaw=.25;gpitch=.25}else cam(step)};
 const labScene=new T.Scene();labScene.background=new T.Color(0x080f1b);labScene.environment=environment;labScene.fog=new T.Fog(0x080f1b,25,60);
@@ -75,8 +77,8 @@ const lk=new T.DirectionalLight(0x8dcfff,1.5);lk.position.set(-5,9,8);labScene.a
 const labRoot=new T.Group();labScene.add(labRoot);const geo=new T.IcosahedronGeometry(.42,1),metal=new T.MeshPhysicalMaterial({color:0xa3cbdb,metalness:.83,roughness:.2,clearcoat:.6}),crystal=new T.MeshPhysicalMaterial({color:0x8ad2f5,metalness:.15,roughness:.12,transparent:true,opacity:.47,depthWrite:false}),wire=new T.MeshBasicMaterial({color:0x78d9fa,wireframe:true});const inst=new T.InstancedMesh(geo,metal,512);labRoot.add(inst);inst.count=128;
 const obj=new T.Object3D();function layoutLab(){const n=inst.count;for(let i=0;i<n;i++){const theta=i*2.39996323,r=2.4+Math.sqrt(i/n)*4.1;obj.position.set(Math.cos(theta)*r,Math.sin(i*.68)*1.1+(i%9)*.43-.9,Math.sin(theta)*r);obj.rotation.set(i*.37,i*.79,i*.16);obj.scale.setScalar(.55+(i%7)*.065);obj.updateMatrix();inst.setMatrixAt(i,obj.matrix);inst.setColorAt(i,new T.Color().setHSL(.47+(i%29)/100,.56,.57));}inst.instanceMatrix.needsUpdate=true;if(inst.instanceColor)inst.instanceColor.needsUpdate=true;inst.computeBoundingSphere();}
 layoutLab();const base=mesh(labScene,new T.CylinderGeometry(7.6,7.6,.18,96),mat(0x121f2e,.7,.28),0,-1.45,0);const ring=mesh(labScene,new T.TorusGeometry(7.0,.028,8,100),new T.MeshBasicMaterial({color:0x66aaff}),0,-1.34,0);ring.rotation.x=Math.PI/2;
-function enterLab(){labMode=true;$('lab').hidden=false;document.querySelector('.panel').hidden=true;goal.set(0,1.8,0);gdist=19;gyaw=.25;gpitch=.25;flash('Live graphics workload');av.event('lab');av.fan(false)}
-$('return').onclick=()=>{labMode=false;$('lab').hidden=true;document.querySelector('.panel').hidden=false;cam(step);av.fan(powered)};
+function enterLab(){numbers.hide();step=7;labMode=true;$('lab').hidden=false;document.querySelector('.panel').hidden=true;goal.set(0,1.8,0);gdist=19;gyaw=.25;gpitch=.25;flash('Live graphics workload');av.event('lab');av.fan(false)}
+$('return').onclick=()=>{step=6;ui();numbers.show();labMode=false;$('lab').hidden=true;document.querySelector('.panel').hidden=false;cam(step);av.fan(powered)};
 $('density').oninput=()=>{inst.count=+$('density').value;layoutLab();$('densityText').textContent=inst.count+' objects';$('instances').textContent=inst.count};
 $('surface').onchange=()=>inst.material=({metal,glass:crystal,wire})[$('surface').value];
 $('lighting').oninput=()=>lk.intensity=+$('lighting').value;
@@ -90,4 +92,4 @@ function frame(t){const dt=Math.min(.12,(t-last)/1000);last=t;const a=1-Math.exp
  const on=powered?1:0;gpu.userData.light.emissiveIntensity=on*1.8;powerM.emissiveIntensity=on*1.6;board.set(0,1,on);for(const f of gpu.userData.fans)f.rotation.z-=dt*(powered?8:0);
  target.lerp(goal,a);yaw+=(gyaw-yaw)*a;pitch+=(gpitch-pitch)*a;dist+=(gdist-dist)*a;const d=dist*(camera.aspect<.75?1.5:1);camera.position.set(target.x+d*Math.cos(pitch)*Math.sin(yaw),target.y+d*Math.sin(pitch),target.z+d*Math.cos(pitch)*Math.cos(yaw));camera.lookAt(target);
  if(labMode){labRoot.rotation.y+=dt*.19;renderer.render(labScene,camera)}else renderer.render(scene,camera);frameCount++;if(t-stamp>=1200){fps=Math.round(frameCount*1000/(t-stamp));$('fps').textContent=fps;frameCount=0;stamp=t}requestAnimationFrame(frame)}
-gpu.position.copy(start);gpu.rotation.x=-Math.PI/2;plug.position.copy(plugStart);cam(0);ui();window.__gpu={state:()=>({step,alignment,connected,fasten,powered,labMode,peers,position:gpu.position.toArray(),instances:inst.count,surface:$('surface').value,fps}),scene,gpu,board,audio:av.state};requestAnimationFrame(frame);
+gpu.position.copy(start);gpu.rotation.x=-Math.PI/2;plug.position.copy(plugStart);cam(0);ui();window.__gpu={state:()=>({step,alignment,connected,fasten,powered,labMode,peers,position:gpu.position.toArray(),instances:inst.count,surface:$('surface').value,fps,startup:numbers.state()}),scene,gpu,board,audio:av.state};requestAnimationFrame(frame);
