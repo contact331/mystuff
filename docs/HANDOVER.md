@@ -1,0 +1,15 @@
+# T03 handover — 2026-11-26
+
+Status: working PBR vertical slice, publicly viewable, pending user visual acceptance. Not the complete V3 unboxing migration.
+
+- Base: 6145d5573dbc3d6c443520800648553bff44ca5b (main before T03).
+- Source: renderer/pbr-v3, deployed revision 39903e7c70aa54ca05957abe7da04c5cfa111ca3.
+- Public material study: https://mystuff-seven.vercel.app/t03/index.html
+- Unchanged complete V2: https://mystuff-seven.vercel.app/ ; original index.html blob c3f62c5264a550ec960dcfc044d0100cd0f673f4 verified before deployment.
+- Vercel production deployment dpl_5n8JiEL6jEd3sPWJ9GjjKGu2QCDc READY; additive /t03 route only. Native Git linking still unavailable. Initial preview dpl_92MV3bHz98ZG85susZ9zMDoKZmwT was protected; no protection settings changed. Initial additive deployment request with project ID was rejected as invalid_project_name; retry by existing project name succeeded.
+- Files: t03/index.html, t03/scene.js, t03/vendor/{three.module.min.js,LICENSE,RoomEnvironment.js,RoundedBoxGeometry.js}. Three.js r160 MIT source vendored from mrdoob/three.js with imports adapted to relative paths; no npm, CDN, remote assets or build step in the deployed scene.
+- Reproduce: git checkout renderer/pbr-v3; python -m http.server 8000; open http://localhost:8000/t03/index.html.
+- Visuals: PMREM studio environment, ACES tone mapping, physical materials, shadow map, procedural brushed metal and etched CPU, approximate land contacts, gold/onyx + three colored pedestal themes, orbit, drag, zoom, macro, flip, spin, levitation, particles. No exact CAD or optical gemstone refraction; not claimed photorealistic.
+- Checks: compared branch to main (only t03 files added). Cloudflare Browser Rendering captured first screenshot and revealed plaque/body intersection. Corrected plaque offset and removed overlapping shell; second screenshot and public deployed route screenshot showed corrected gold pedestal and CPU. Browser content smoke confirmed WebGL canvas, initial spin, ruby theme, spin toggle, macro/orbit toggles and reset. Flip button invoked but underside and direct pointer/pinch interactions not separately visually verified. Software-rendered browser reported 1–2 FPS; not a measurement of user's local GPU. Test on Chrome/Firefox/tablet before acceptance.
+- Complete V2 unboxing/audio/receipt/exploded view unchanged at root; NOT migrated into T03 slice. The original box/tray-to-pedestal collision remains in V2, and must be fixed during T06. No new GPU VM or billable service provisioned; existing browser rendering used for brief checks.
+- Next: user compares realism/performance; T04 material library and refinement (reference-based geometry, better gemstone optical depth and engravings, optimize draw calls), T05 packaging and CPU precision, T06 full unboxing migration with collision-free staging, T07 complete functional/audio/visual regression. No promotion of prototype over V2 without approval.
