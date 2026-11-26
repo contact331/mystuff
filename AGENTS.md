@@ -64,3 +64,6 @@ Integrated F2 V3 candidate at https://mystuff-seven.vercel.app/v3/index.html. V2
 
 ## T09 collection-engine checkpoint
 V5 live: https://mystuff-seven.vercel.app/v5/index.html (CPU BS-001 and RAM BS-002). Read [ENGINE-V5.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/ENGINE-V5.md) and branch handover. Use shared registry/models/scene interface for future acquisitions. F2 remains default. Cumulative installed state is browser-local. Current slot reconstruction and lifecycle support CPU/RAM; extend adapters for other object types without duplicating the renderer. Deployed source 31ca9b31d495bfeaebc7a82ea2721d61d8da421c; keep V4 unchanged as baseline. No paid GPU provisioning.
+
+## T10–T14 virtual commerce checkpoint
+MyStuff Market V6 is live at https://mystuff-seven.vercel.app/market/index.html. Read [MARKET-V6.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/MARKET-V6.md). Shared V5 engine preserved; virtual wallet/order state browser-local. Source e3c8a3e9290215ef6ad5a58999a228e0ad42a6d2. Add catalog entries together with working artifact registry entries. Do not introduce real payments or request personal payment/address details. Maintain original routes.
