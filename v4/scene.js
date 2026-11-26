@@ -152,7 +152,7 @@ const installCameras=[
 ];
 function installLayout(t){
  const p=progress,appear=ease((p-6.38)/.62),travel=ease(p-6),lower=ease(p-8),align=ease(p-7),lock=ease(p-9),retention=ease((lock)*1.7),lever=ease((lock-.52)/.48);
- board.group.visible=p>6.38;boardKey.visible=boardFill.visible=board.group.visible;packaging.visible=p<6.7;board.group.position.y=-(1-appear)*1.4;board.set(1-retention,lever,p>=9.98?1:0);
+ scene.fog.near=45;scene.fog.far=85;board.group.visible=p>6.38;boardKey.visible=boardFill.visible=board.group.visible;packaging.visible=p<6.7;board.group.position.y=-(1-appear)*1.4;board.set(1-retention,lever,p>=9.98?1:0);
  stageRoot.visible=p<6.36;stageRoot.position.y=-ease((p-6)/.36)*1.65;dust.visible=false;
  const hoverY=lerp(3.15,1.48,align);
  cpuRoot.position.set(lerp(0,SOCKET.x,travel),p<7?lerp(2.16,3.15,travel):lerp(hoverY,SOCKET.seatY,lower),lerp(0,SOCKET.z,travel));
@@ -172,7 +172,7 @@ function applyLayout(t){const l=layoutAt(Math.min(progress,6));packaging.positio
  chip.rotation.set(look*(.77+cpuTilt+flip),look*(.23+cpuYaw),0,'YXZ');
  ihsBase.position.y=.038+ex*.79;ihsMesh.position.y=ex*.79;mark.position.y=.158+ex*.79;tileGroup.position.y=ex*.29;tileGroup.visible=ex>.025;
  if(stageRoot.visible){cpuRoot.position.y+=Math.sin(t*.0015)*.055;cpuRoot.updateMatrixWorld(true);const bounds=new T.Box3().setFromObject(chip);const top=stageRoot.position.y+.87;cpuRoot.position.y+=Math.max(0,top+.20-bounds.min.y);}
- if(progress>6){installLayout(t);return l;}board.group.visible=false;boardKey.visible=boardFill.visible=false;packaging.visible=true;const k=Math.min(5,Math.floor(progress)),f=ease(progress-k),a=CAMERA_STAGES[k],b=CAMERA_STAGES[k+1];const target=new T.Vector3(...a.target).lerp(new T.Vector3(...b.target),f);if(macro&&current>=5)target.y=cpuRoot.position.y+ex*.2;else if(current>=5)target.y+=ex*.26;
+ if(progress>6){installLayout(t);return l;}scene.fog.near=15;scene.fog.far=32;board.group.visible=false;boardKey.visible=boardFill.visible=false;packaging.visible=true;const k=Math.min(5,Math.floor(progress)),f=ease(progress-k),a=CAMERA_STAGES[k],b=CAMERA_STAGES[k+1];const target=new T.Vector3(...a.target).lerp(new T.Vector3(...b.target),f);if(macro&&current>=5)target.y=cpuRoot.position.y+ex*.2;else if(current>=5)target.y+=ex*.26;
  const d=lerp(a.dist,b.dist,f)*zoomFactor*(camera.aspect<.8?1.22:1),cy=lerp(a.yaw,b.yaw,f)+camYawOffset,cp=T.MathUtils.clamp(lerp(a.pitch,b.pitch,f)+camPitchOffset,-.05,1.30);
  camera.position.set(target.x+d*Math.cos(cp)*Math.sin(cy),target.y+d*Math.sin(cp),target.z+d*Math.cos(cp)*Math.cos(cy));camera.lookAt(target);
  scene.updateMatrixWorld(true);
