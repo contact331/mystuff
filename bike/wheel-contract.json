@@ -1,0 +1,35 @@
+{
+  "revision": "T30",
+  "units": "metres",
+  "orientation": {
+    "wheelLocal": "XY rolling plane; Z axle axis",
+    "origin": "axle center",
+    "bikeWorld": "X forward, Y up, Z axle axis"
+  },
+  "frontAxleBike": [
+    0.7,
+    0.3,
+    0
+  ],
+  "rearAxleBike": [
+    -0.7,
+    0.3,
+    0
+  ],
+  "wheelbase": 1.4,
+  "tyreOD": 0.6,
+  "rotorDiameter": 0.32,
+  "provenance": {
+    "rotorDiameter": "1995 contemporary test approx 320 mm",
+    "wheelbase": "1995 Honda archive",
+    "tyreOD": "estimated",
+    "rimWidth": "estimated"
+  },
+  "quality": {
+    "detail": "close inspection",
+    "assembly": "reduced tessellation, same topology and pivots"
+  },
+  "acceptance": "User found T29 more convincing, still insufficient visual detail. T30 pending user visual approval.",
+  "runtime": "Local repo Three r160, shared helpers, no external model or CDN",
+  "integration": "Not integrated; T28 shell frozen."
+}
