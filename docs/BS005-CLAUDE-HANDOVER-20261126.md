@@ -128,3 +128,6 @@ User specifically requested custom Honda Repsol ElevenLabs sound ON/OFF. T22.2 o
 4. Do not promote until user visually accepts; record commit/deployment, status, tests and failures. Keep turn scope ~10–15 minutes, no new billable infrastructure. If unavailable, stop with specific blocker rather than substitute another obviously bad object.
 
 **Bottom line:** T22–T28 produced a functional acquisition engine, persistent audio, multiple asset pipelines and useful QA knowledge, but failed the visual objective. T28 improved to user-rated 3/10 only. Preserve the CPU baseline, not the rejected bike geometry. Claude has freedom to change the hero asset method, with zero-cost constraint.
+
+## Subsequent checkpoint
+T29–T31 supersede the previous suggested workflow: user favored the engineering-reference component approach, T30 optimized the front wheel, T31 exhibits it in place of rejected motorcycle and pauses. See [session archive index](BS005-SESSION-ARCHIVE-20261126.md), [Claude audit](CLAUDE_MYSTUFF_BS005_DIAGNOSIS_2026-11-26_15-05_CET.md) and [cumulative log](HANDOVER.md). Do not resume automatically.
