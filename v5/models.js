@@ -15,7 +15,7 @@ points.forEach((p,i)=>i?outline.lineTo(...p):outline.moveTo(...p));outline.close
 const ihs=new T.ExtrudeGeometry(outline,{depth:.075,bevelEnabled:true,bevelSize:.028,bevelThickness:.023,bevelSegments:4,steps:1});ihs.rotateX(-Math.PI/2);ihs.translate(0,.057,0);const ihsMesh=mesh(chip,ihs,[steel,steelEdge]);
 const etch=tex(1024,1216,(c,w,h)=>{c.clearRect(0,0,w,h);c.fillStyle='rgba(36,40,40,.68)';c.textAlign='left';c.font='bold 85px Arial';c.fillText('intel',175,363);c.font='60px Arial';c.fillText('CORE™ ULTRA 9',175,455);c.font='bold 76px Arial';c.fillText('285K',175,545);c.font='36px monospace';c.fillText('SRQD5   X0000000',175,610);c.fillText('INTEL © 2024',175,655);const q=9,s=8;for(let y=0;y<q;y++)for(let x=0;x<q;x++)if((x*y+x+3*y)%5<2)c.fillRect(175+x*s,702+y*s,s,s);c.beginPath();c.moveTo(90,1040);c.lineTo(125,1040);c.lineTo(90,1005);c.closePath();c.fill();});
 const mark=mesh(chip,new T.PlaneGeometry(1.49,1.76),new T.MeshStandardMaterial({map:etch,transparent:true,depthWrite:false,roughness:.65,metalness:.35,polygonOffset:true,polygonOffsetFactor:-1}),0,.158,0);mark.rotation.x=-Math.PI/2;mark.castShadow=false;mark.renderOrder=2;
-// Illustrative land grid; not the exact LGA1851 contact layout.
+// Intel package nominal 37.5 x 45 mm. Illustrative land grid; not the exact LGA1851 contact layout.
 const pads=[];for(let iz=0;iz<45;iz++)for(let ix=0;ix<37;ix++){const x=(ix-18)*.043,z=(iz-22)*.043;if(Math.abs(x)<.22&&Math.abs(z)<.34)continue;if(Math.abs(x)>.67&&Math.abs(z)>.85)continue;pads.push([x,z]);}
 const land=new T.InstancedMesh(new T.BoxGeometry(.027,.006,.032),contact,pads.length);pads.forEach(([x,z],i)=>{dummy.position.set(x,-.032,z);dummy.rotation.set(0,0,0);dummy.updateMatrix();land.setMatrixAt(i,dummy.matrix);});chip.add(land);
 for(let i=0;i<28;i++){const x=(i%7-3)*.057,z=(Math.floor(i/7)-1.5)*.078;box(chip,.035,.024,.053,.004,ceramic,x,-.044,z);box(chip,.036,.012,.011,.003,solder,x,-.057,z-.022);box(chip,.036,.012,.011,.003,solder,x,-.057,z+.022);}
@@ -29,12 +29,13 @@ return {explode(ex){ihsBase.position.y=.038+ex*.79;ihsMesh.position.y=ex*.79;mar
 }
 export function makeRAM({chip,box,mesh,tex,brushed}){
 const pcb=new T.MeshStandardMaterial({color:0x0e2c23,roughness:.5,metalness:.1}), metal=new T.MeshPhysicalMaterial({map:brushed,color:0xd4b166,metalness:1,roughness:.28,clearcoat:.4}),dark=new T.MeshStandardMaterial({color:0x171c25,roughness:.35,metalness:.5}),gold=new T.MeshStandardMaterial({color:0xd1a758,metalness:1,roughness:.25}),led=new T.MeshPhysicalMaterial({color:0xd5ebf8,emissive:0x83bff8,emissiveIntensity:.38,roughness:.15,clearcoat:1}),silicon=new T.MeshStandardMaterial({color:0x191b20,roughness:.6});
+// Kingston reference KF564C32BBAK2-64: 288 contacts and 16 DRAM packages/module. Noble finish is fictional.
 const modules=[],shells=[];
 const logo=tex(1024,180,(c,w,h)=>{c.fillStyle='#b18e4b';c.fillRect(0,0,w,h);c.fillStyle='#1b222a';c.font='bold 72px Georgia';c.textAlign='center';c.fillText('N O B L E   D D R 5',w/2,80);c.font='34px Arial';c.fillText('32 GB  •  6400 MT/s',w/2,140);});
 for(let k=0;k<2;k++){const m=new T.Group();chip.add(m);modules.push(m);m.position.z=(k-.5)*1.65;
 box(m,5.10,.065,1.18,.025,pcb,0,0,.12);
 const pass=[];for(let i=0;i<8;i++){box(m,.43,.045,.57,.015,silicon,(i-3.5)*.55,.06,.03);box(m,.43,.045,.57,.015,silicon,(i-3.5)*.55,-.06,.03);}
-for(const y of [-.042,.042]){const count=138;const pads=new T.InstancedMesh(new T.BoxGeometry(.022,.009,.18),gold,count);const d=new T.Object3D();for(let i=0;i<count;i++){let x=-2.47+i*(4.94/(count-1));if(x>.10&&x<.20)x+=.10;d.position.set(x,y,.63);d.updateMatrix();pads.setMatrixAt(i,d.matrix);}m.add(pads);}
+for(const y of [-.042,.042]){const count=144;const pads=new T.InstancedMesh(new T.BoxGeometry(.022,.009,.18),gold,count);const d=new T.Object3D();for(let i=0;i<count;i++){let x=-2.47+i*(4.94/(count-1));if(x>.10&&x<.20)x+=.10;d.position.set(x,y,.63);d.updateMatrix();pads.setMatrixAt(i,d.matrix);}m.add(pads);}
 const top=new T.Group(),bottom=new T.Group();m.add(top,bottom);shells.push([top,bottom]);
 for(const [side,sg] of [[1,top],[-1,bottom]]){box(sg,5.15,.12,1.10,.075,metal,0,side*.13,-.075);box(sg,4.94,.025,.67,.035,dark,0,side*.207,-.05);const mark=mesh(sg,new T.PlaneGeometry(4.45,.62),new T.MeshStandardMaterial({map:logo,metalness:.55,roughness:.38}),0,side*.225,-.05);mark.rotation.x=side*-Math.PI/2;mark.castShadow=false;for(let i=0;i<8;i++){const b=box(sg,.09,.045,.62,.012,metal,-2.24+i*.64,side*.21,-.065);b.rotation.y=.36;}}
 box(m,5.03,.18,.20,.065,led,0,0,-.65);for(const x of [-2.56,2.56])box(m,.12,.30,1.04,.04,metal,x,0,-.05);
