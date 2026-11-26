@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {initial,change,totals,purchase,advance,engineURL,load,save} from './store.mjs';
+const s=initial();change(s,'BS-001',1);change(s,'BS-002',1);
+assert.equal(totals(s).gross,23329);assert.equal(totals(s).netCents+totals(s).taxCents,2332900);
+const o=purchase(s,0);assert.equal(s.balance,76671);assert.equal(s.orders.length,1);assert.deepEqual(s.cart,{});
+assert.throws(()=>purchase(s));assert.equal(s.balance,76671);assert.equal(engineURL(o,'BS-001'),null);
+advance(o);advance(o);advance(o);advance(o);assert.equal(o.stage,3);assert.equal(engineURL(o,'BS-002'),'/v5/index.html?asset=BS-002');
+assert.equal(engineURL(o,'BS-999'),null);change(s,'BS-001',9);assert.throws(()=>purchase(s));assert.equal(s.balance,76671);
+const mock={value:null,setItem(k,v){this.value=v},getItem(){return this.value}};save(s,mock);assert.deepEqual(load(mock),s);
+console.log('Wallet, VAT, duplicate payment, delivery gate, insufficient funds and persistence passed.');
