@@ -1,0 +1,26 @@
+{
+  "id": "BS-005",
+  "revision": "T23",
+  "grade": "F3 candidate; not accepted",
+  "units": "metres",
+  "referenceDimensions": {
+    "length": 2.01,
+    "width": 0.6,
+    "height": 1.08,
+    "wheelbase": 1.4
+  },
+  "sources": [
+    "https://www.honda.co.jp/HRC/repsolhondateam/archives/1995/",
+    "https://commons.wikimedia.org/wiki/File:1995_Honda_NSR500_of_Mick_Doohan.jpeg",
+    "https://commons.wikimedia.org/wiki/File:Honda_NSR500_1995.jpg"
+  ],
+  "recipe": "bike/models.mjs",
+  "method": "Original procedural multi-surface model from visual references; no copied photo textures or CAD",
+  "limitations": [
+    "Unmeasured panel geometry",
+    "Schematic engine internals",
+    "Approximate typography and sponsor graphics",
+    "Not manufacturing CAD"
+  ],
+  "audio": "bike/audio/manifest.json"
+}
