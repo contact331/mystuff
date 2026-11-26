@@ -4,8 +4,15 @@ export function sensory(){
  let ac,master,mb,sb,noiseBuffer,clock,beat=0,next=0,fanSource=null,fanGain=null,fanFilter=null,wantFan=false,active=false,lastCue='',cueCount=0;
  const $=id=>document.getElementById(id),save=()=>{try{localStorage.setItem(key,JSON.stringify(prefs))}catch{}};
  const bar=document.createElement('div');bar.id='sensory-controls';bar.innerHTML='<button id="music-toggle">♫ Music</button><button id="effects-toggle">SFX</button><label>Volume <input id="sensory-volume" type="range" min="0" max="100" aria-label="Audio volume"></label><span id="audio-state">Audio starts on first interaction</span>';document.body.append(bar);
- const overlay=document.createElement('canvas');overlay.id='sensory-fx';overlay.setAttribute('aria-hidden','true');document.body.append(overlay);const g=overlay.getContext('2d');
- const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;let w=0,h=0,dpr=1,burst=null,events=0;function resize(){dpr=Math.min(devicePixelRatio,1.5);w=innerWidth;h=innerHeight;overlay.width=Math.round(w*dpr);overlay.height=Math.round(h*dpr);g.setTransform(dpr,0,0,dpr,0,0)}resize();addEventListener('resize',resize);
+ // Bounded compositor-only splash: no canvas, per-frame drawing, animated shadows or full-screen blend.
+ const overlay=document.createElement('div');overlay.id='sensory-fx';overlay.setAttribute('aria-hidden','true');overlay.hidden=true;
+ overlay.innerHTML='<i class="fx-glow"></i><i class="fx-ring"></i><i class="fx-scan"></i><svg class="fx-sparks" viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M20 28l4 3M43 14l3 5M77 8l1 4M115 7l-1 4M151 16l-3 5M179 31l-4 3M192 58l-5 0M177 88l-4-3M150 105l-3-5M111 113l-1-5M72 108l2-5M40 94l4-4M10 62l5-1" stroke-width="1.2"/></svg>';
+ document.body.append(overlay);const reduced=matchMedia('(prefers-reduced-motion: reduce)');let events=0,visualRuns=0,skips=0,lastVisual=-Infinity,cleanup=0,animations=[];
+ let vfx=true;try{vfx=localStorage.getItem('mystuff.gpu.vfx.v2')!=='off'}catch{}
+ const vfxButton=document.createElement('button');vfxButton.id='vfx-toggle';vfxButton.textContent='VFX '+(vfx?'on':'off');vfxButton.setAttribute('aria-pressed',String(vfx));bar.insertBefore(vfxButton,$('audio-state'));
+ function stopFX(){clearTimeout(cleanup);for(const a of animations)a.cancel();animations=[];overlay.hidden=true}
+ vfxButton.onclick=()=>{vfx=!vfx;vfxButton.textContent='VFX '+(vfx?'on':'off');vfxButton.setAttribute('aria-pressed',String(vfx));try{localStorage.setItem('mystuff.gpu.vfx.v2',vfx?'on':'off')}catch{}if(!vfx)stopFX()};
+ reduced.addEventListener?.('change',()=>{if(reduced.matches)stopFX()});
  function labels(){$('music-toggle').textContent='♫ Music '+(prefs.music?'on':'off');$('effects-toggle').textContent='SFX '+(prefs.sfx?'on':'off');$('music-toggle').setAttribute('aria-pressed',String(prefs.music));$('effects-toggle').setAttribute('aria-pressed',String(prefs.sfx));$('sensory-volume').value=Math.round(prefs.volume*100);$('audio-state').textContent=ac?.state==='running'?'Audio active':prefs.music||prefs.sfx?'Audio starts on first interaction':'Audio muted';}
  function init(){if(!ac){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;ac=new AC();master=ac.createGain();master.gain.value=prefs.volume;mb=ac.createGain();sb=ac.createGain();mb.gain.value=prefs.music?.23:0;sb.gain.value=prefs.sfx?.55:0;mb.connect(master);sb.connect(master);const comp=ac.createDynamicsCompressor();master.connect(comp);comp.connect(ac.destination);noiseBuffer=ac.createBuffer(1,ac.sampleRate*2,ac.sampleRate);const data=noiseBuffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;ac.onstatechange=labels;next=ac.currentTime+.05;clock=setInterval(schedule,90)}if(ac.state==='suspended')ac.resume().then(()=>{labels();if(wantFan)fan(true)}).catch(()=>{});active=true;labels();return true}
  const hz=n=>440*2**((n-69)/12);
@@ -34,11 +41,25 @@ export function sensory(){
  default:tn(76,.13,.045,83);}
  }
  function fan(on){wantFan=on;if(!on){if(fanSource){const source=fanSource;fanGain.gain.setTargetAtTime(0,ac.currentTime,.15);try{source.stop(ac.currentTime+.55)}catch{}fanSource=null;}return}if(!prefs.sfx||!ac||ac.state!=='running'||fanSource)return;fanSource=ac.createBufferSource();fanSource.buffer=noiseBuffer;fanSource.loop=true;fanFilter=ac.createBiquadFilter();fanFilter.type='lowpass';fanFilter.frequency.value=580;fanGain=ac.createGain();fanGain.gain.value=.0001;fanGain.gain.setTargetAtTime(.04,ac.currentTime,.4);fanSource.connect(fanFilter).connect(fanGain).connect(sb);fanSource.start();}
- function fx(kind='step'){events++;burst={kind,start:performance.now()};const panel=document.querySelector('.panel:not([hidden])');if(panel&&!reduced){panel.animate([{boxShadow:'0 0 0 #a8ff6c00'},{boxShadow:'0 0 28px #a8ff6c55'},{boxShadow:'0 0 0 #a8ff6c00'}],{duration:650})}const holo=$('hologram');if(holo&&!holo.hidden&&!reduced)holo.animate([{opacity:.25,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:480})}
+ function fx(kind='step'){
+ events++;if(!vfx||reduced.matches||document.hidden){skips++;return}
+ const major=['boot','reveal','lab'].includes(kind),now=performance.now();
+ // Coalesce rapid events; major reveal replaces an ordinary effect, not an additional layer.
+ if(!major&&now-lastVisual<180){skips++;return}
+ stopFX();lastVisual=now;visualRuns++;overlay.dataset.major=String(major);overlay.hidden=false;
+ const dur=major?640:340;
+ const anim=(sel,keys,t)=>{const el=overlay.querySelector(sel);animations.push(el.animate(keys,{duration:t,easing:'cubic-bezier(.18,.6,.22,1)',fill:'forwards'}))};
+ anim('.fx-glow',[{opacity:0,transform:'scale(.72)'},{opacity:major?.78:.43,transform:'scale(.95)',offset:.21},{opacity:0,transform:'scale(1.12)'}],dur);
+ anim('.fx-ring',[{opacity:major?.6:.34,transform:'scale(.60)'},{opacity:0,transform:'scale(1.38)'}],dur);
+ anim('.fx-scan',[{opacity:0,transform:'translateY(-70px)'},{opacity:.75,offset:.20},{opacity:0,transform:'translateY(70px)'}],dur);
+ if(major)anim('.fx-sparks',[{opacity:.68,transform:'scale(.65)'},{opacity:0,transform:'scale(1.30)'}],dur);else overlay.querySelector('.fx-sparks').style.opacity='0';
+ cleanup=setTimeout(stopFX,dur+40);
+ }
  function event(kind){cue(kind);fx(kind)}
- function draw(t){if(!g)return;g.clearRect(0,0,w,h);if(reduced)return;const cx=w*.50,cy=h*.46;g.save();g.globalCompositeOperation='screen';for(let i=0;i<22;i++){const x=(i*173.81+t*(.004+i%3*.002))%w,y=(i*83.53+t*.009)%h;g.fillStyle='rgba(176,222,245,'+(.025+.045*(.5+.5*Math.sin(i+t*.001)))+')';g.beginPath();g.arc(x,y,.55+(i%3)*.24,0,Math.PI*2);g.fill()}if(burst){const p=(t-burst.start)/1350;if(p>=0&&p<1){const k=burst.kind,major=['boot','reveal','lab'].includes(k),col=major?'117,224,255':'174,237,108';const a=(1-p)**2;const grad=g.createRadialGradient(cx,cy,0,cx,cy,Math.min(w,h)*.62);grad.addColorStop(0,'rgba('+col+','+(a*(major?.09:.035))+')');grad.addColorStop(1,'rgba('+col+',0)');g.fillStyle=grad;g.fillRect(0,0,w,h);for(let i=0;i<(major?45:22);i++){const angle=i*2.39996,rr=(.06+p*.47)*Math.min(w,h)*(.7+(i%7)*.08),x=cx+Math.cos(angle)*rr,y=cy+Math.sin(angle)*rr*.55;g.strokeStyle='rgba('+col+','+a*.48+')';g.lineWidth=i%5===0?1.7:.7;g.beginPath();g.moveTo(x,y);g.lineTo(x+Math.cos(angle)*(4+12*a),y+Math.sin(angle)*(4+12*a));g.stroke()}const y=cy-Math.min(w,h)*.27+p*Math.min(w,h)*.55;const scan=g.createLinearGradient(w*.18,0,w*.82,0);scan.addColorStop(0,'transparent');scan.addColorStop(.5,'rgba('+col+','+a*.34+')');scan.addColorStop(1,'transparent');g.fillStyle=scan;g.fillRect(w*.18,y,w*.64,2);g.strokeStyle='rgba('+col+','+a*.15+')';g.beginPath();g.ellipse(cx,cy,(.08+p*.42)*Math.min(w,h),(.045+p*.15)*Math.min(w,h),0,0,Math.PI*2);g.stroke()}else if(p>=1)burst=null;}g.restore()}
+ // Kept as a compatibility no-op; neither renderer needs a per-frame VFX pass.
+ function draw(){}
  let hoverAt=0;document.addEventListener('pointerover',e=>{const b=e.target.closest?.('button,a');if(b&&!b.disabled&&(!e.relatedTarget||!b.contains(e.relatedTarget))&&performance.now()-hoverAt>90){hoverAt=performance.now();if(active)cue('hover')}});
  document.addEventListener('pointerdown',()=>{if(prefs.music||prefs.sfx)init()},{capture:true,passive:true});document.addEventListener('keydown',()=>{if(prefs.music||prefs.sfx)init()},{capture:true});document.addEventListener('click',e=>{if(e.target.closest?.('button,a')&&prefs.sfx)cue('click')},true);
- addEventListener('pagehide',()=>{clearInterval(clock);if(ac)ac.close().catch(()=>{})});labels();
- return {event,cue,fx,draw,fan,state:()=>({music:prefs.music,sfx:prefs.sfx,volume:prefs.volume,context:ac?.state||'not-created',lastCue,cueCount,events,fan:!!fanSource})};
+ addEventListener('pagehide',()=>{stopFX();clearInterval(clock);if(ac)ac.close().catch(()=>{})});labels();
+ return {event,cue,fx,draw,fan,state:()=>({music:prefs.music,sfx:prefs.sfx,volume:prefs.volume,context:ac?.state||'not-created',lastCue,cueCount,events,visualRuns,skips,vfx,fxActive:!overlay.hidden,fan:!!fanSource})};
 }
