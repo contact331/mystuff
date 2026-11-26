@@ -55,3 +55,6 @@ A visually reviewed, collision-free, interactive upgrade that is reproducible fr
 
 ## Latest checkpoint: T03
 The PBR vertical slice is live at https://mystuff-seven.vercel.app/t03/index.html; full V2 remains at the root. Read the [T03 handover](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/HANDOVER.md) on branch `renderer/pbr-v3` before continuing. T03 is pending visual acceptance; do not restart the completed prototype. Main remains the frozen baseline; future renderer development continues on the feature branch. For additive deployments preserve both the V2 root and the T03 study until the user approves replacement.
+
+## T04 companion checkpoint
+User accepted T03's visual speed/quality point. F2 is the default; F3–F4 are selective. Follow [docs/ARTIFACT-STANDARD.md](docs/ARTIFACT-STANDARD.md). Mandatory technical companion PDF + dimensioned reference + manifest for each acquisition; printable exports optional. BS-001 companion is now live at https://mystuff-seven.vercel.app/t03/companions/bs-001.pdf and integrated into both V2 and T03. Source/assets remain on renderer/pbr-v3; deployed source commit 00a9fdb18c1da04888766b50cdcd13033ec9bdc3, deployment dpl_atyh1y3HsboXHoCLzzoUMuh5iSv6. Next prioritize full collision-free unboxing integration, preserve accepted T03 visual grade. See branch handover. No paid GPU infrastructure.
