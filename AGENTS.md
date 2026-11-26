@@ -73,3 +73,6 @@ Live https://mystuff-seven.vercel.app/engineering/index.html. Read [ENGINEERING-
 
 ## T16 experience-first checkpoint
 Private gallery live https://mystuff-seven.vercel.app/gallery/index.html. Read [EXPERIENCE-T16.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/EXPERIENCE-T16.md). User priority: finished experiences over additional backend engineering; keep optional Lite kernel, approximate 90/10 experience/enrichment. Heritage and Frontier previews not purchasable yet. Preserve existing wallet and collection state. No new paid infrastructure.
+
+## T17 UX novelty checkpoint
+RTX 5090 live https://mystuff-seven.vercel.app/gpu/index.html. Read [UX-NOVELTY-T17.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/UX-NOVELTY-T17.md). Reuse underlying engine and checkout, not choreography; target at least 40% experiential novelty and one unique functional mechanic per new acquisition. User selected GPU instead of orrery. Gallery failed on user device; do not require it. Keep F2 fast turnaround and optional engineering enrichment.
