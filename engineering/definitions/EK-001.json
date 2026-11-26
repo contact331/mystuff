@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "EK-001",
+  "revision": "A",
+  "name": "Noble exhibition pedestal",
+  "kind": "axisymmetric-solid",
+  "units": "mm",
+  "description": "Single-piece printable interpretation of the six-band MyStuff exhibition pedestal. Decorative finishes and levitation effects are not physical mechanisms.",
+  "source": "v5/scene.js: stageRoot cylinder stack; nominal physical scale selected at 25 mm per scene unit, seams rationalized for a continuous solid.",
+  "designIntent": "Desk display for a lightweight, non-powered replica. Not a rated support for valuable or hazardous loads.",
+  "parameters": {
+    "diameterScale": 1,
+    "heightScale": 1,
+    "segments": 96,
+    "material": "PLA",
+    "dimensionalToleranceMm": 0.25
+  },
+  "profile": [
+    {"z":0,"r":45.5,"band":"Base"},
+    {"z":3,"r":42.75,"band":"Base"},
+    {"z":3,"r":43,"band":"Lower collar"},
+    {"z":6.75,"r":43,"band":"Lower collar"},
+    {"z":8.75,"r":40,"band":"Transition"},
+    {"z":17.25,"r":37,"band":"Display body"},
+    {"z":19,"r":38.25,"band":"Upper collar"},
+    {"z":21,"r":39,"band":"Top"}
+  ],
+  "materials": {
+    "PLA":{"densityGcm3":1.24,"note":"Nominal solid density; supplier grade and print process not verified."},
+    "PETG":{"densityGcm3":1.27,"note":"Nominal solid density; supplier grade and print process not verified."},
+    "ABS":{"densityGcm3":1.04,"note":"Nominal solid density; supplier grade and print process not verified."}
+  },
+  "manufacturing": {
+    "method":"FDM prototype candidate",
+    "components":[{"id":"P01","name":"Monolithic pedestal body","quantity":1,"material":"selected","process":"FDM","finish":"Optional decorative finish not included"}],
+    "toleranceStatus":"Proposed target only; no measurement or process capability evidence",
+    "notes":["Print flat on base; inspect overhangs in slicer.","Use slicer to determine supports, infill, actual mass and print time.","Inspect flatness and dimensions on the manufactured sample.","No levitation, electronics, load rating or physical validation included."]
+  }
+}
