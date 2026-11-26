@@ -12,9 +12,9 @@ export const stages=[
 ['Tyres and controls','Steering and lever test; race slicks, not road tyres.','Rev and horn','click'],
 ['Functional test','Try throttle and fictional horn. Engine readings are simulated.','Explode','reveal'],
 ['Exploded inspection','Engine off. Schematic assemblies separate reversibly.','Reassemble','lab'],
-['Recomposition','Observe the restored machine.','Open equipment case','seat'],
-['Helmet equipment','Open the foam-lined metal case, lift helmet, operate visor.','Exhibit','lid'],
+['Recomposition','Observe the restored machine.','Inspect equipment case','seat'],
+['Helmet equipment','Open the foam-lined metal case, lift the helmet, operate its visor.','Exhibit','lid'],
 ['Private trophy','Rotate the exhibit, review official sources and save the virtual specimen.','Save trophy','reveal']];
 export const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 export const initial=()=>({stage:0,paid:false,engine:false,throttle:0,steer:0,brake:0,ex:0,open:0,lift:0,visor:0,spin:true,saved:false});
-export function enter(s,n){s.stage=clamp(n,0,15);s.paid=s.stage>=3;s.engine=s.stage>=6&&s.stage<=11;s.throttle=s.steer=s.brake=0;s.ex=s.stage===12?1:0;s.open=s.stage>=14?1:0;s.lift=s.visor=0;return s}
+export function enter(s,n){s.stage=clamp(n,0,15);s.paid=s.stage>=3;s.engine=s.stage>=6&&s.stage<=11;s.throttle=s.steer=s.brake=0;s.ex=s.stage===12?1:0;s.open=0;s.lift=s.visor=0;return s}
