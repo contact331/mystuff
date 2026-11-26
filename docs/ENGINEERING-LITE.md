@@ -1,0 +1,17 @@
+# T15 / Engineering Kernel Lite V1
+
+Live https://mystuff-seven.vercel.app/engineering/index.html
+Default PDF https://mystuff-seven.vercel.app/engineering/EK-001-Rev-A.pdf
+Deployed source 4dc6d0c27896f438e8d99348b4881e5fbf6787ce; deployment dpl_BSj4Qz9ej21fEZkFkJncAR8MjyiS READY. V2–V5 renderer files and checkout code preserved by verified SHA-1 references; Market index has only added Engineering navigation.
+
+## Contract
+- engineering/definitions/EK-001.json is a single versioned physical profile definition. It is a rationalized printable interpretation of V5's pedestal, not an exact scale transfer or levitation device. Nominal 25 mm per scene unit.
+- kernel.mjs generates indexed axisymmetric solid meshes, analytic volume, estimated material mass, BOM CSV, dimensional SVG, STL, uncompressed 3MF ZIP, QC JSON, and evidence rubric.
+- app.mjs regenerates outputs on parameter change; preview.mjs renders the same indexed mesh converted to display triangles. PDF/HTML dossier generated from the same geometry and QC. Browser workbench computation is local, no solver/API dependency.
+- To add a rotational solid, add EK-NNN.json in definitions and open ?artifact=EK-NNN. Supported profile: positive radii, monotonic axial coordinates, single radial steps, bounded segment count, declared material and tolerance. Other primitive families / assembly / CSG require additional adapters, not new rendering engine. Current V5 remains a separate path; existing CPU/RAM are not upgraded by this release.
+- Default rapid production: F2 visual + E1 reference, optional Lite enrichment when dimensions/shape are suitable. Do not block visual delivery on E2 or imply CAD/FEA evidence not produced. Target recurring overhead 3–9 minutes is unmeasured; benchmark during next three eligible artifacts.
+
+## Validation
+Default EK-001: 91 x 91 x 21 mm, 770 vertices, 1536 triangles, mesh volume 107647.256 mm³, PLA solid mass estimate 133.48 g, 0.0714% polygonization difference; closed edge topology, winding, degenerate checks and nominal bounds passed. Proposed tolerance ±0.25 mm declared only, not measured. Score 34/100 under provisional EPR rubric, E2 candidate, not independently verified. No engineering claim for existing CPU/RAM. At 2x diameter and 0.5x height, bounds 182 x 182 x 10.5 mm, volume 2x within numerical precision. 24/48/96/192/256 segments pass; bad resolution, zero scale and unknown material rejected. Browser UI scaled to 136.5 mm. STL count 1536; 3MF parsed three archive entries and valid model XML with 770 vertices and 1536 triangles; third-party slicer import not tested. Browser screenshot showed live preview and controls. Default PDF generated 2 pages, 132043 bytes, SHA-256 e47f1ff22efacb29c8e17824c6aff5c4674fbb20de54b8920ef0bd21f87e8586, R2 key ek-001/rev-a/production-dossier.pdf; HTTP 200 and live checksum verified. PDF page-level visual inspection not completed: public PDF inaccessible to container/web download. Print-to-PDF regenerates current dossier, default PDF is frozen. Mobile controls, real material data, supplier tolerances and actual print remain unvalidated. No new paid resource provisioned; provider usage charges not independently audited.
+- test.mjs is reproducible Node assertion suite; equivalent kernel checks run in browser (not Node runner itself).
+- No STEP/B-rep, slicer validation, FEA, physical testing, rated loads, native production process qualification. E2 candidate only.
