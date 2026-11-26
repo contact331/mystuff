@@ -43,3 +43,6 @@ Live https://mystuff-seven.vercel.app/gallery/index.html; source 55364d56b8e7278
 
 ## T17 — RTX 5090 distinct UX loop
 Live https://mystuff-seven.vercel.app/gpu/index.html, source bc449d86c206410b8c8a4048ece102b3eb35d25c, deployment dpl_3dwVPCiVgBGKiN9z9fGaKd74hHX9 READY. GPU chassis access, alignment, seating, screw, auxiliary power, boot and real WebGL render chamber. Market third product routes to own experience. UI smoke and screenshots passed; remaining tests and novelty target in docs/UX-NOVELTY-T17.md. Gallery not a dependency. No orrery expansion.
+
+## T18 — RTX 5090 classic retail revision
+Live https://mystuff-seven.vercel.app/gpu/fe.html; installation /gpu/install.html; original /gpu/index.html preserved. Deployed 2f4d2f011ba60956ad0f3f6fefca07299c0ae244, dpl_H8wQ6DBjxs9cm5TXxVkju9iZZij2 READY. User chose classic black/green carton and foam, not FE paper packaging; custom packaging clearly labeled. New GPU model and full accessory unboxing, existing installation and render chamber preserved. Screenshots and separate lifecycle smoke tests passed; see docs/RTX5090-T18.md for limits.
