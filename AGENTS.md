@@ -67,3 +67,6 @@ V5 live: https://mystuff-seven.vercel.app/v5/index.html (CPU BS-001 and RAM BS-0
 
 ## T10–T14 virtual commerce checkpoint
 MyStuff Market V6 is live at https://mystuff-seven.vercel.app/market/index.html. Read [MARKET-V6.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/MARKET-V6.md). Shared V5 engine preserved; virtual wallet/order state browser-local. Source e3c8a3e9290215ef6ad5a58999a228e0ad42a6d2. Add catalog entries together with working artifact registry entries. Do not introduce real payments or request personal payment/address details. Maintain original routes.
+
+## T15 Engineering Kernel Lite
+Live https://mystuff-seven.vercel.app/engineering/index.html. Read [ENGINEERING-LITE.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/ENGINEERING-LITE.md). Keep fast F2 acquisition flywheel; enrich suitable geometry via one master definition, generating model, drawing, BOM, QC and exports. E2 is optional and evidence-based; no mandatory solver or fabrication gate. Existing CPU/RAM EPR unchanged. No paid resource provisioning.
