@@ -1,0 +1,21 @@
+{
+  "id": "BS-001",
+  "revision": "B",
+  "grade": "F2",
+  "board": "Noble Z890-class ATX concept",
+  "referenceCPU": "Intel Core i9-12900K",
+  "sources": [
+    "https://nanoreview.net/en/cpu-compare/intel-core-ultra-9-285k-vs-intel-core-i9-12900k",
+    "https://www.intel.com/content/www/us/en/products/sku/241060/intel-core-ultra-9-processor-285k-36m-cache-up-to-5-70-ghz/specifications.html",
+    "https://www.intel.com/content/www/us/en/products/sku/134599/intel-core-i912900k-processor-30m-cache-up-to-5-20-ghz/specifications.html"
+  ],
+  "companion": {
+    "r2Key": "bs-001/rev-b/companion.pdf",
+    "bytes": 429747,
+    "pages": 12,
+    "sha256": "f9b5ea91f178632d481d50541fd036f4de5a911528718fe1ee616c095de76aa9",
+    "source": "v4/companions/bs-001-rev-b.html",
+    "pdf": "/v4/companions/bs-001-rev-b.pdf"
+  },
+  "geometry": "Concept motherboard and reference package dimensions; no manufacturing CAD."
+}
