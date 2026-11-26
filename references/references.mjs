@@ -62,5 +62,38 @@ export const references={
     ],
     "geometry": "304 × 137 mm face, dual flow-through cooler; central electronics and split I/O schematic, not measured CAD. Classic retail packaging is custom.",
     "archive": "/gpu/dossier-rev-b.pdf"
+  },
+  "BS-004": {
+    "name": "Vera Rubin · logic wafer",
+    "scope": "NVIDIA published Rubin GPU architecture plus a representative 300 mm wafer carrier. Not an official wafer product or manufacturing model.",
+    "docs": [
+      [
+        "Rubin GPU architecture",
+        "https://developer.nvidia.com/blog/inside-nvidia-rubin-gpu-architecture-powering-the-era-of-agentic-ai/",
+        "Dual logic dies, published peak resources and HBM4"
+      ],
+      [
+        "Vera Rubin platform",
+        "https://developer.nvidia.com/blog/inside-the-NVIDIA-rubin-platform-six-new-chips-one-ai-supercomputer/",
+        "Vera CPU and Rubin GPU are distinct chips"
+      ],
+      [
+        "HGX reference specifications",
+        "https://www.nvidia.com/en-us/data-center/hgx/",
+        "Individual GPU peak specifications; system ratings may differ"
+      ],
+      [
+        "B200 reference baseline",
+        "https://docs.nvidia.com/enterprise-reference-architectures/hgx-ai-factory-h100-h200-b200/latest/components.html",
+        "180 GB HBM3e per B200"
+      ],
+      [
+        "H300 wafer shipper datasheet · PDF",
+        "https://www.entegris.com/content/dam/product-assets/h300series300mmsinglewafershippers/datasheet-h300-sws-5658.pdf",
+        "300 mm single-wafer handling reference"
+      ]
+    ],
+    "geometry": "300 mm diameter; patterned die map, yield, carrier and fabrication are schematic. Package contains two logic dies and eight illustrative HBM stacks. No proprietary floorplan or actual wafer offer.",
+    "archive": null
   }
 };
