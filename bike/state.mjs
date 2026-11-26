@@ -5,7 +5,7 @@ export const stages=[
 ['Handover','Accept the tribute key and simulated receipt.','Mount bike','seat'],
 ['Mount','The stylized rider takes the clip-ons.','Insert key','connect'],
 ['Ignition','Key-start is a fictional tribute feature, not the factory GP configuration.','Start engine','boot'],
-['Engine alive','Synthesized two-stroke sound and analogue tachometer.','Roll outside','boot'],
+['Engine alive','Custom ElevenLabs two-stroke impression and analogue tachometer; independent engine audio switch.','Roll outside','boot'],
 ['Forecourt','Slow controlled motion across private ground.','Dismount','align'],
 ['Walkaround','Inspect fairings, wheels, swingarm and cockpit.','Engine detail','click'],
 ['Engine and exhaust','Inspect schematic V4 and polished expansion chambers.','Check tyres','align'],

@@ -1,0 +1,13 @@
+{
+  "assetId": "BS-005",
+  "path": "bike/audio/nsr500-idle.mp3",
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "generationId": "2wavRzWzFooD4VAbRYtR",
+  "durationSeconds": 4,
+  "gitBlob": "10afecc20307a736a01de11f2fab2a50c41084c5",
+  "creditCost": 16.665,
+  "sourceType": "AI-generated sound effect; not a recorded Honda race engine",
+  "runtime": "Local asset, crossfade loop, RPM playback-rate and filter, independent persisted mute, master volume, no external requests",
+  "prompt": "Close-miked 1995 Honda NSR500 Repsol 499cc two-stroke V4 Grand Prix motorcycle at steady fast idle, raw uneven Big Bang exhaust pulses, raspy metallic expansion chambers, fine mechanical chatter, stable continuous loop, no speech, no music, no other vehicles."
+}
