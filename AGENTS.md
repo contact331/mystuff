@@ -76,3 +76,6 @@ Private gallery live https://mystuff-seven.vercel.app/gallery/index.html. Read [
 
 ## T17 UX novelty checkpoint
 RTX 5090 live https://mystuff-seven.vercel.app/gpu/index.html. Read [UX-NOVELTY-T17.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/UX-NOVELTY-T17.md). Reuse underlying engine and checkout, not choreography; target at least 40% experiential novelty and one unique functional mechanic per new acquisition. User selected GPU instead of orrery. Gallery failed on user device; do not require it. Keep F2 fast turnaround and optional engineering enrichment.
+
+## T18 classic GPU retail revision
+Live https://mystuff-seven.vercel.app/gpu/fe.html. Read [RTX5090-T18.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/RTX5090-T18.md). User specifically prefers classic black retail box and foam, not FE shipping carton. Keep premium packaging and accessory inspection alongside distinctive functional installation/render loop. T17 direct route preserved. No new paid infrastructure.
