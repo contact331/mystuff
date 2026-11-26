@@ -111,7 +111,7 @@ tileGroup.visible=false;
 const themes={gold:[0xc9a05a,0x111218,0x202229,0xe7c68d],sapphire:[0xc4c9d0,0x103577,0x2249a0,0x699fff],ruby:[0xd6a28c,0x6e101f,0xa1213c,0xff8794],emerald:[0xc9a05a,0x064a37,0x158b61,0x85e9c1]};
 function theme(name){const a=themes[name];if(!a)return;gold.color.setHex(a[0]);gemstone.color.setHex(a[1]);gemRim.color.setHex(a[2]);gemstone.roughness=name==='gold'?.18:.11;gemstone.metalness=name==='gold'?.25:.12;haloMat.color.setHex(a[3]);dust.material.color.setHex(a[3]);}
 const board=makeBoard(scene);
-const boardKey=new T.DirectionalLight(0xfff1dc,2.8),boardFill=new T.DirectionalLight(0xb9ddff,1.5);boardKey.position.set(2,13,6);boardFill.position.set(-6,8,-5);scene.add(boardKey,boardFill);boardKey.visible=boardFill.visible=false;
+const boardKey=new T.DirectionalLight(0xfff1dc,2.25),boardFill=new T.DirectionalLight(0xb9ddff,1.1);boardKey.position.set(2,13,6);boardFill.position.set(-6,8,-5);scene.add(boardKey,boardFill);boardKey.visible=boardFill.visible=false;
 const audio=bindAudio(el);let lastArrival=-1,metricsOn=false,metricStart=0;let current=0,progress=0,cpuYaw=0,cpuTilt=0,flipTarget=0,flip=0,exTarget=0,ex=0,autoSpin=true,orbitMode=false,macro=false,zoomFactor=1,camYawOffset=0,camPitchOffset=0,materialChoice='gold',burstTime=-10000,burstKind=0;
 const pointers=new Map();let drag=false,moved=false,pinch=0,toastTimer=0;
 const pressed=(id,value)=>el(id).setAttribute('aria-pressed',String(value));
@@ -148,7 +148,7 @@ const installCameras=[
  {target:[0,.6,-.6],dist:24.5,pitch:1.08,yaw:.12},
  {target:[SOCKET.x,.8,SOCKET.z],dist:8.1,pitch:1.12,yaw:.15},
  {target:[SOCKET.x,.55,SOCKET.z],dist:7.0,pitch:1.13,yaw:.12},
- {target:[0,.4,.6],dist:32.5,pitch:1.18,yaw:.10}
+ {target:[0,.4,1.35],dist:36.5,pitch:1.18,yaw:.10}
 ];
 function installLayout(t){
  const p=progress,appear=ease((p-6.38)/.62),travel=ease(p-6),lower=ease(p-8),align=ease(p-7),lock=ease(p-9),retention=ease((lock)*1.7),lever=ease((lock-.52)/.48);
