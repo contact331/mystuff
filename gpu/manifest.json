@@ -1,0 +1,28 @@
+{
+  "id": "BS-003",
+  "name": "GeForce RTX 5090",
+  "grade": "F2 candidate",
+  "engineering": "E1",
+  "specs": {
+    "memoryGB": 32,
+    "memory": "GDDR7",
+    "TGPW": 575,
+    "lengthMm": 304,
+    "widthMm": 137,
+    "slot": 2,
+    "referencePSUW": 1000
+  },
+  "source": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/",
+  "model": "gpu/model.mjs",
+  "route": "/gpu/index.html",
+  "companion": {
+    "source": "gpu/dossier.html",
+    "pdf": "gpu/dossier.pdf",
+    "r2Key": "bs-003/rev-a/companion.pdf",
+    "pages": 2,
+    "bytes": 68321,
+    "sha256": "2fe1bacb3de1289ecec58c0b19f8d580a8e04b397bf979fd26689e2d192a422c"
+  },
+  "virtualPriceCZK": 59990,
+  "novelty": "case access, alignment, seat, bracket, auxiliary power, boot, interactive WebGL workload; no ribbon, pedestal or synthetic performance comparison"
+}
