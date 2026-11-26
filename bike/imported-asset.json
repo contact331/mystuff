@@ -1,5 +1,5 @@
 {
-  "revision": "T26",
+  "revision": "T27",
   "source": "https://tevy.dev/models/sport-motorcycle/v1/lod0.glb",
   "license": "CC0 1.0",
   "sourcePage": "https://tevy.dev/models/sport-motorcycle",
@@ -16,10 +16,11 @@
     "kickstand"
   ],
   "limitations": [
-    "not Honda geometry or Repsol livery",
+    "not Honda geometry or exact Repsol livery",
     "external pinned GLB and decoder CDN",
     "no individual fairing internals",
     "schematic explosion",
     "procedural fallback on load failure"
-  ]
+  ],
+  "paint": "Original selectively shaded orange/red/ivory/navy tribute; not authentic livery"
 }
