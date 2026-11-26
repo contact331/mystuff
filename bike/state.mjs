@@ -9,7 +9,7 @@ export const stages=[
 ['Forecourt','Slow controlled motion across private ground.','Dismount','align'],
 ['Walkaround','Inspect fairings, wheels, swingarm and cockpit.','Engine detail','click'],
 ['Engine and exhaust','Inspect the imported engine exterior and exhaust. Assembly separation is schematic.','Check tyres','align'],
-['Tyres and controls','Steering and simulated lever test; inspect the imported road tyres.','Rev and horn','click'],
+['Tyres and controls','Front-wheel steering preview and simulated lever test; inspect the tyres.','Rev and horn','click'],
 ['Functional test','Try throttle and fictional horn. Engine readings are simulated.','Explode','reveal'],
 ['Exploded inspection','Engine off. Available imported assemblies separate reversibly.','Reassemble','lab'],
 ['Recomposition','Observe the restored machine.','Inspect equipment case','seat'],

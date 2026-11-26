@@ -1,26 +1,18 @@
 {
-  "revision": "T27",
-  "source": "https://tevy.dev/models/sport-motorcycle/v1/lod0.glb",
-  "license": "CC0 1.0",
-  "sourcePage": "https://tevy.dev/models/sport-motorcycle",
-  "model": "generic sport motorcycle",
-  "historicalReference": "Honda NSR500 1995 (separate)",
-  "triangles": 53948,
-  "sourceBytes": 2755884,
-  "groups": [
-    "body",
-    "fittings",
-    "fork",
-    "wheel_F",
-    "wheel_R",
-    "kickstand"
-  ],
+  "revision": "T28",
+  "source": "https://files.innerscene.com/library/race-replica-superbike-fully-faired-badbd83b/9ce443dc7d0c14f443e9/race-replica-superbike-fully-faired.glb",
+  "sourcePage": "https://www.innerscene.com/tools/library/3d-parts/race-replica-superbike-fully-faired-badbd83b",
+  "license": "CC0-1.0",
+  "sourceBytes": 21033196,
+  "materials": 22,
+  "model": "generic fully faired race-replica superbike",
+  "modifications": "orange/navy/ivory palette, original projected racing lettering, wheel split, assembly groups",
+  "fallback": "T27 tevy CC0 asset then procedural",
   "limitations": [
-    "not Honda geometry or exact Repsol livery",
-    "external pinned GLB and decoder CDN",
-    "no individual fairing internals",
-    "schematic explosion",
-    "procedural fallback on load failure"
-  ],
-  "paint": "Original selectively shaded orange/red/ivory/navy tribute; not authentic livery"
+    "not factory Honda CAD",
+    "material-group assembly rather than engineering disassembly",
+    "front wheel steering preview only, fork not separately rigged",
+    "external GLB, shared cache per renderer",
+    "visual acceptance pending"
+  ]
 }
