@@ -70,3 +70,6 @@ MyStuff Market V6 is live at https://mystuff-seven.vercel.app/market/index.html.
 
 ## T15 Engineering Kernel Lite
 Live https://mystuff-seven.vercel.app/engineering/index.html. Read [ENGINEERING-LITE.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/ENGINEERING-LITE.md). Keep fast F2 acquisition flywheel; enrich suitable geometry via one master definition, generating model, drawing, BOM, QC and exports. E2 is optional and evidence-based; no mandatory solver or fabrication gate. Existing CPU/RAM EPR unchanged. No paid resource provisioning.
+
+## T16 experience-first checkpoint
+Private gallery live https://mystuff-seven.vercel.app/gallery/index.html. Read [EXPERIENCE-T16.md](https://github.com/contact331/mystuff/blob/renderer/pbr-v3/docs/EXPERIENCE-T16.md). User priority: finished experiences over additional backend engineering; keep optional Lite kernel, approximate 90/10 experience/enrichment. Heritage and Frontier previews not purchasable yet. Preserve existing wallet and collection state. No new paid infrastructure.
