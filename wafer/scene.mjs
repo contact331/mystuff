@@ -41,7 +41,7 @@ let step=0,lightAngle=35,zoom=1,scan=0,selected=[],phase=0,validated=false,split
 const stats=[['Transistors (B)',208,336],['HBM capacity (GB)',180,288],['Memory bandwidth (TB/s)',8,22],['NVLink (TB/s)',1.8,3.6],['Tensor cores',0,896],['NVFP4 sparse peak (PFLOPS)',0,50]];
 const good=cells.filter(c=>c.pass).length;
 const camera=new T.PerspectiveCamera(40,1,.1,120);let yaw=.15,pitch=.8,dist=30,gyaw=yaw,gpitch=pitch,gdist=dist,goal=new T.Vector3(0,2,0),target=goal.clone(),drag=null;
-function cam(){goal.set(0,step>=12?2.6:1.6,0);gyaw=step===8||step===12?.88:.16;gpitch=step===8||step===12?.35:step===15?.18:.83;gdist=step===6?12:step===16?40:step>=11?25:31;}
+function cam(){goal.set(0,step===5?3.1:step>=12?2.6:1.6,0);gyaw=step===8||step===12?.88:.16;gpitch=step===8||step===12?.35:step===15?.18:.83;gdist=step===6?12:step===16?40:step>=11?25:31;}
 function flash(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1100)}
 function button(s,id,disabled=false){return '<button id="'+id+'" '+(disabled?'disabled':'')+'>'+s+'</button>'}
 function metric(n,v){return '<div class="metric"><span>'+n+'</span><b>'+v+'</b></div>'}
@@ -79,8 +79,8 @@ let last=performance.now(),pSplit=0,frameCount=0,lastMap='',lastSplit=-1,lastSpl
 function frame(t){const dt=Math.min(.1,(t-last)/1000);last=t;const a=1-Math.exp(-dt*5);function move(o,x,y,z){o.position.lerp(vv.set(x,y,z),a)}
  caseBase.visible=step<5;caseLid.visible=step<2;move(caseLid,0,step>=1?4:2.78,step>=1?-15:0);caseLid.rotation.x+=( (step>=1?-.35:0)-caseLid.rotation.x)*a;
  pouch.visible=step===1||step===2;move(pouch,step>=2?-15:0,step>=2?3:1.35,0);
- carrier.visible=step<6;carrierLid.visible=step===2||step===3;move(carrierLid,step>=3?11:0,step>=3?3.5:2.23,step>=3?-6:0);
- w.group.visible=(step>=3&&step<=10&&step!==8)||step===16;move(w.group,step===16?-7:0,step===4?3.35:step>=5?2.5:1.91,0);
+ carrier.visible=step<5;carrierLid.visible=step===2||step===3;move(carrierLid,step>=3?11:0,step>=3?3.5:2.23,step>=3?-6:0);
+ w.group.visible=(step>=3&&step<=10&&step!==8)||step===16;move(w.group,step===16?-7:0,step===4?3.65:step===5?3.1:step>=6?2.5:1.91,0);
  w.group.rotation.x+=((step===5?.20:0)-w.group.rotation.x)*a;w.group.rotation.y+=((step===5?lightAngle*Math.PI/180:0)-w.group.rotation.y)*a;
  key.position.set(Math.cos(lightAngle*Math.PI/180)*12,11,Math.sin(lightAngle*Math.PI/180)*12);
  arm.visible=step===4;move(arm,8,step===4?-.5:-5,0);probe.visible=step===7;if(scan>0&&scan<=cells.length){const c=cells[scan-1];stylus.position.x=c.x*1.25;stylus.position.z=c.y*1.25;stylus.position.y=2.8}
