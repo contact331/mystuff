@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "BS-001",
+  "object": "Intel Core Ultra 9 285K",
+  "visualGrade": "F2",
+  "geometry": {
+    "units": "mm",
+    "outerEnvelope": {
+      "length": 45,
+      "width": 37.5
+    },
+    "source": "https://www.intel.com/content/www/us/en/products/sku/241060/intel-core-ultra-9-processor-285k-36m-cache-up-to-5-70-ghz/specifications.html",
+    "status": "Published package footprint; rendered model approximate; no verified internal geometry or manufacturing tolerances"
+  },
+  "companion": {
+    "revision": "A",
+    "source": "t03/companions/bs-001.html",
+    "pdf": "/t03/companions/bs-001.pdf",
+    "r2Key": "bs-001/rev-a/companion.pdf",
+    "mime": "application/pdf",
+    "bytes": 244400,
+    "pages": 9,
+    "sha256": "291eec537d0c0eed4c1f97564cf1dc96264757e85ef542f3c8ccf80506d67900"
+  },
+  "blueprint": {
+    "path": "t03/companions/bs-001-blueprint.svg",
+    "status": "reference envelope only; not manufacturing CAD"
+  },
+  "manufacturingExport": null
+}
