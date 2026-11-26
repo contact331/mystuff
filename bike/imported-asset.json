@@ -1,0 +1,25 @@
+{
+  "revision": "T26",
+  "source": "https://tevy.dev/models/sport-motorcycle/v1/lod0.glb",
+  "license": "CC0 1.0",
+  "sourcePage": "https://tevy.dev/models/sport-motorcycle",
+  "model": "generic sport motorcycle",
+  "historicalReference": "Honda NSR500 1995 (separate)",
+  "triangles": 53948,
+  "sourceBytes": 2755884,
+  "groups": [
+    "body",
+    "fittings",
+    "fork",
+    "wheel_F",
+    "wheel_R",
+    "kickstand"
+  ],
+  "limitations": [
+    "not Honda geometry or Repsol livery",
+    "external pinned GLB and decoder CDN",
+    "no individual fairing internals",
+    "schematic explosion",
+    "procedural fallback on load failure"
+  ]
+}

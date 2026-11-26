@@ -6,6 +6,7 @@ import {createGPU} from '../gpu/fe-model.mjs';
 import {waferModel,packageModel} from '../wafer/models.mjs';
 import {catalog,load,ownsInstalled} from '../market/store.mjs';
 import {motorcycle} from '../bike/models.mjs';
+import {readyBike} from '../bike/ready-bike.mjs';
 import {sensory} from '../gpu/sensory.mjs';
 const $=id=>document.getElementById(id),av=sensory(),state=load(),ids=catalog.map(p=>p.id),reduce=matchMedia('(prefers-reduced-motion: reduce)');
 const delivered=id=>state.orders.some(o=>o.stage===3&&o.lines.some(l=>l.id===id)),owned=id=>ownsInstalled(id)||delivered(id);
@@ -27,7 +28,7 @@ if(id==='BS-001'){model=makeCPU({...h,chip});chip.scale.setScalar(1.25);baseTilt
 if(id==='BS-002'){model=makeRAM({...h,chip});chip.scale.setScalar(.48);baseTilt=.42;apply=e=>model.explode(e);}
 if(id==='BS-003'){const gpu=createGPU(h);chip.add(gpu);chip.scale.setScalar(.23);baseTilt=-.25;apply=e=>gpu.userData.explode(e);}
 if(id==='BS-004'){wafer=waferModel(h);pack=packageModel(h);chip.add(wafer.group,pack.group);wafer.group.scale.setScalar(.29);pack.group.scale.setScalar(.31);baseTilt=1.10;apply=e=>pack.pose(e,4);}
-if(id==='BS-005'){model=motorcycle(h);chip.add(model.root);chip.scale.setScalar(1.6);baseTilt=0;apply=e=>model.explode(e);}
+if(id==='BS-005'){model=readyBike(renderer,{fallback:motorcycle(h)});chip.add(model.root);chip.scale.setScalar(1.6);baseTilt=0;apply=e=>model.explode(e);}
 root.position.y=2.05;return {root,turn,chip,apply,wafer,pack,baseTilt};}
 function resetCam(){gyaw=.20;gpitch=.38;gdist=10.4}function configure(){const p=catalog.find(x=>x.id===selected);$('count').textContent=ids.filter(owned).length+' / '+ids.length+' acquired';$('items').innerHTML=catalog.map(x=>'<button class="trophy-item" data-id="'+x.id+'" aria-pressed="'+(x.id===selected)+'"><img src="/market/'+x.art+'.svg" alt=""><span><b>'+x.name+'</b><small>'+x.id+' · '+(ownsInstalled(x.id)?'Completed':delivered(x.id)?'Delivered':'Preview')+'</small></span></button>').join('');$('serial').textContent=p.id+' / PRIVATE COLLECTION';$('name').textContent=p.name;$('details').textContent=p.spec;$('ownership').textContent=owned(p.id)?'◆ Acquired virtual specimen':'◇ Showroom preview — not acquired';$('docs').href=p.dossier;$('replay').href=route(p);$('preview').src='/market/'+p.art+'.svg';$('actions').innerHTML=selected==='BS-004'?'<label>Specimen<select id="mode"><option value="wafer">Original wafer</option><option value="package">Derived Rubin package</option></select></label>':'';if($('mode')){$('mode').value=mode;$('mode').onchange=e=>{mode=e.target.value;ex=false;exValue=0;configure();av.event('align')}}$('explode').disabled=selected==='BS-004'&&mode==='wafer';$('rotate').textContent=rotating?'Pause rotation':'Resume rotation';$('explode').textContent=ex?'Reassemble':'Exploded inspection';$('finish').value=finish;if(!renderer)return;for(const v of models.values())v.root.visible=false;if(!models.has(selected))models.set(selected,make(selected));active=models.get(selected);active.root.visible=true;stand.setFinish(finish);if(active.wafer){active.wafer.group.visible=mode==='wafer';active.pack.group.visible=mode==='package';}active.apply(exValue);}
 function select(id){selected=id;mode='wafer';ex=false;exValue=0;flipped=false;finish=prefs[id]||'gold';resetCam();configure();av.event('reveal');}

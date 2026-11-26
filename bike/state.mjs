@@ -1,6 +1,6 @@
 export const stages=[
 ['Showroom arrival','Enter the private heritage showroom and survey the display machines.','Approach champion','reveal'],
-['The champion','No. 1, inspired by the 1995 NSR500. Inspect the race livery.','Approach counter','align'],
+['The champion','Inspect the ready-made sportbike, inspired by the 1995 racing theme.','Approach counter','align'],
 ['Cash acquisition','Fictional display notes only; no real payment.','Pay virtual cash','paper'],
 ['Handover','Accept the tribute key and simulated receipt.','Mount bike','seat'],
 ['Mount','The stylized rider takes the clip-ons.','Insert key','connect'],
@@ -8,10 +8,10 @@ export const stages=[
 ['Engine alive','Custom ElevenLabs two-stroke impression and analogue tachometer; independent engine audio switch.','Roll outside','boot'],
 ['Forecourt','Slow controlled motion across private ground.','Dismount','align'],
 ['Walkaround','Inspect fairings, wheels, swingarm and cockpit.','Engine detail','click'],
-['Engine and exhaust','Inspect schematic V4 and polished expansion chambers.','Check tyres','align'],
-['Tyres and controls','Steering and lever test; race slicks, not road tyres.','Rev and horn','click'],
+['Engine and exhaust','Inspect the imported engine exterior and exhaust. Assembly separation is schematic.','Check tyres','align'],
+['Tyres and controls','Steering and simulated lever test; inspect the imported road tyres.','Rev and horn','click'],
 ['Functional test','Try throttle and fictional horn. Engine readings are simulated.','Explode','reveal'],
-['Exploded inspection','Engine off. Schematic assemblies separate reversibly.','Reassemble','lab'],
+['Exploded inspection','Engine off. Available imported assemblies separate reversibly.','Reassemble','lab'],
 ['Recomposition','Observe the restored machine.','Inspect equipment case','seat'],
 ['Helmet equipment','Open the foam-lined metal case, lift the helmet, operate its visor.','Exhibit','lid'],
 ['Private trophy','Rotate the exhibit, review official sources and save the virtual specimen.','Save trophy','reveal']];
